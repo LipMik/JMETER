@@ -21,7 +21,7 @@
 
       stage('Execute Performance Tests') {
         dir("${WORKSPACE}/script") {
-			bat 'C:\Users\Lenovo\Downloads\apache-jmeter-5.4.3\bin\jmeter -j jmeter.save.saveservice.output_format=xml -n -t C:\Users\Lenovo\Downloads\apache-jmeter-5.4.3\bin\postgre_tests.jmx -l C:\Users\Lenovo\Downloads\apache-jmeter-5.4.3\bin\report.jtl'
+			bat 'C:/Users/Lenovo/Downloads/apache-jmeter-5.4.3/bin/jmeter -j jmeter.save.saveservice.output_format=xml -n -t C:/Users/Lenovo/Downloads/apache-jmeter-5.4.3/bin/postgre_tests.jmx -l C:/Users/Lenovo/Downloads/apache-jmeter-5.4.3/bin/report.jtl'
         }
       }
 

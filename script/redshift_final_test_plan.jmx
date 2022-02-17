@@ -1042,6 +1042,2194 @@ SELECT * FROM golden_metadata gm;
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck count of rows LND_LAYER.dim_products/LAYER_3NF.ce_product_types tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT  a-b as difference 
+from
+(select count(*) as a from 
+		(	
+			 SELECT product_type_src_id ,
+				product_type_name ,
+				product_type_name_en
+			 FROM layer_3nf.ce_product_types) a) lnd,
+(select count(*)+1 as b from 			 			 
+		(
+			 SELECT distinct product_type_id ,
+						product_type_name ,
+						product_type_name_en 
+			 FROM lnd_layer.dim_products) b) ext;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_count_differ_from_rows_prod_types</stringProp>
+          <stringProp name="resultVariable">check_count_differ_from_rows_prod_types</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_count_differ_from_rows_prod_types" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_count_differ_from_rows_prod_types_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck row-by-rows LND_LAYER.dim_products/LAYER_3NF.ce_product_groups tables " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select * from 
+(
+select distinct product_group_id ,
+				product_group_name ,
+				product_group_name_en 
+from lnd_layer.dim_products dp 
+union 
+select &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;
+) a
+except 
+select product_group_src_id ,
+				product_group_name ,
+				product_group_name_en 
+from layer_3nf.ce_product_groups 
+union all
+select product_group_src_id ,
+				product_group_name ,
+				product_group_name_en 
+from layer_3nf.ce_product_groups
+except 
+select * from 
+(
+select distinct product_group_id ,
+				product_group_name ,
+				product_group_name_en 
+from lnd_layer.dim_products dp 
+union 
+select &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;
+) a</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_row_by_row_ce_prod_groups</stringProp>
+          <stringProp name="resultVariable">check_row_by_row_ce_prod_groups</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_row_by_row_ce_prod_groups" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_row_by_row_ce_prod_groups_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck sum of column data length LND_LAYER.dim_products/LAYER_3NF.ce_product_types tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (a.a_product_type_src_id-b_product_type_src_id)
+	  + (a_product_type_name-b_product_type_name)
+	  + (a_product_type_name_en-b_product_type_name_en) as length_difference
+FROM 
+	(
+	SELECT sum(length(product_type_id)) as a_product_type_src_id, 
+		   sum(length(product_type_name)) as a_product_type_name,  
+		   sum(length(product_type_name_en)) as a_product_type_name_en
+	FROM 
+		(
+			SELECT distinct product_type_id,
+				   product_type_name,
+				   product_type_name_en
+			FROM lnd_layer.dim_products
+			union all
+			select &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;
+		) d
+	) a,
+	(
+	SELECT sum(length(product_type_src_id)) as b_product_type_src_id, 
+		   sum(length(product_type_name))as b_product_type_name,  
+		   sum(length(product_type_name_en))as b_product_type_name_en
+	FROM layer_3nf.ce_product_types
+	) b</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_sum_differ_from_datalenght_product_type</stringProp>
+          <stringProp name="resultVariable">check_sum_differ_from_datalenght_product_type</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_sum_differ_from_datalenght_product_type" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_sum_differ_from_datalenght_product_type_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck sum of column data length LND_LAYER.dim_merchandisers/EXT_LAYER.dimmerchandisers tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (a.a_merch_id-b.b_merch_id)
+	+ (a.a_merch_name-b.b_merch_name)
+	+ (a.a_merch_name_en-b.b_merch_name_en)
+	+ (a.a_supervisor_id-b.b_supervisor_id)
+	+ (a.a_supervisor_name-b.b_supervisor_name)
+	+ (a.a_supervisor_name_en-b.b_supervisor_name_en)
+	+ (a.a_cust_id-b.b_cust_id)
+	+ (a.a_cust_name-b.b_cust_name)
+	+ (a.a_cust_name_en-b.b_cust_name_en)
+	+ (a.a_distr_id-b.b_distr_id)
+	+ (a.a_distr_name-b.b_distr_name)
+	+ (a.a_distr_name_en-b.b_distr_name_en)
+	+ (a.a_city_id-b.b_city_id)
+	+ (a.a_city_name-b.b_city_name)
+	+ (a.a_district_id-b.b_district_id)
+	+ (a.a_district_name-b.b_district_name)
+	+ (a.a_region_id-b.b_region_id)
+	+ (a.a_region_name-b.b_region_name)
+	+ (a.a_country_id-b.b_country_id)
+	+ (a.a_country_name-b.b_country_name)
+	+ (a.a_division_manager_id-b.b_division_manager_id)
+	+ (a.a_division_manager_name-b.b_division_manager_name)
+	+ (a.a_region_manager_id-b.b_region_manager_id)
+	+ (a.a_region_manager_name-b.b_region_manager_name) as length_difference
+	FROM
+	(	  	  
+	SELECT sum(length(trim(merch_id))) as a_merch_id, 
+		   sum(length(trim(merch_name))) as a_merch_name, 
+		   sum(length(trim(merch_name_en))) as a_merch_name_en, 
+		   sum(length(trim(supervisor_id))) as a_supervisor_id, 
+		   sum(length(trim(supervisor_name))) as a_supervisor_name,
+		   sum(length(trim(supervisor_name_en))) as a_supervisor_name_en,
+		   sum(length(trim(cust_id))) as a_cust_id,
+		   sum(length(trim(cust_name))) as a_cust_name,
+		   sum(length(trim(cust_name_en))) as a_cust_name_en,	   
+		   sum(length(trim(distr_id))) as a_distr_id, 
+		   sum(length(trim(distr_name))) as a_distr_name, 
+		   sum(length(trim(distr_name_en))) as a_distr_name_en,
+		   sum(length(trim(city_id))) as a_city_id, 
+		   sum(length(trim(city_name))) as a_city_name,
+		   sum(length(trim(district_id))) as a_district_id,
+		   sum(length(trim(district_name))) as a_district_name,
+		   sum(length(trim(region_id))) as a_region_id,
+		   sum(length(trim(region_name))) as a_region_name,
+		   sum(length(trim(country_id))) as a_country_id,
+		   sum(length(trim(country_name))) as a_country_name, 
+		   sum(length(trim(divisionmanager_id))) as a_division_manager_id,
+		   sum(length(trim(divisionmanager_name))) as a_division_manager_name,
+		   sum(length(trim(regionmanager_id))) as a_region_manager_id,
+		   sum(length(trim(regionmanager_name))) as a_region_manager_name  
+	from ext_layer.dimmerchandisers
+	) a,
+	(
+	select sum(length(merch_id)) as b_merch_id, 
+		   sum(length(merch_name)) as b_merch_name,  
+		   sum(length(merch_name_en)) as b_merch_name_en, 
+		   sum(length(supervisor_id)) as b_supervisor_id, 
+		   sum(length(supervisor_name)) as b_supervisor_name,
+		   sum(length(supervisor_name_en)) as b_supervisor_name_en,
+		   sum(length(cust_id)) as b_cust_id,
+		   sum(length(cust_name)) as b_cust_name,
+		   sum(length(cust_name_en)) as b_cust_name_en,	   
+		   sum(length(distr_id)) as b_distr_id,
+		   sum(length(distr_name)) as b_distr_name,
+		   sum(length(distr_name_en)) as b_distr_name_en,
+		   sum(length(city_id)) as b_city_id,
+		   sum(length(city_name)) as b_city_name,
+		   sum(length(district_id)) as b_district_id,
+		   sum(length(district_name)) as b_district_name,
+		   sum(length(region_id)) as b_region_id,
+		   sum(length(region_name)) as b_region_name,
+		   sum(length(country_id)) as b_country_id,
+		   sum(length(country_name)) as b_country_name,
+		   sum(length(division_manager_id)) as b_division_manager_id,
+		   sum(length(division_manager_name)) as b_division_manager_name,
+		   sum(length(region_manager_id)) as b_region_manager_id,
+		   sum(length(region_manager_name)) as b_region_manager_name
+	from lnd_layer.dim_merchandisers
+	) b</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_sum_differ_from_datalenght_merchandisers</stringProp>
+          <stringProp name="resultVariable">check_sum_differ_from_datalenght_merchandisers</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_sum_differ_from_datalenght_merchandisers" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_sum_differ_from_datalenght_merchandisers_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck for the existence of LAYER_3NF.ce_product_categories table " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">select  product_category_surr_id,
+		product_category_src_id,
+		product_category_name,
+		product_category_name_en,
+		src_table,
+		insert_dt,
+		update_dt 
+from layer_3nf.ce_product_categories
+limit 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">check_exist_3nf_prod_categories</stringProp>
+          <stringProp name="variableNames">check_exist_3nf_prod_categories</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="existence of ce_product_check_exist_3nf_prod_categories table" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_3nf_prod_categories_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck count of rows LND_LAYER.dim_merchandisers/EXT_LAYER.dimmerchandisers tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT  lnd.lnd_count-ext.ext_count as difference 
+FROM
+(SELECT count(*) as lnd_count FROM LND_LAYER.dim_merchandisers) lnd, 
+(SELECT count(*) as ext_count FROM EXT_LAYER.dimmerchandisers) ext;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_count_differ_from_rows_merchandisers</stringProp>
+          <stringProp name="resultVariable">check_count_differ_from_rows_merchandisers</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_count_differ_from_rows_merchandisers" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_count_differ_from_rows_merchandisers_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck row-by-rows LND_LAYER.dim_products/LAYER_3NF.ce_product_categories tables " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select * from 
+(
+select distinct product_category_id ,
+				product_category_name ,
+				product_category_name_en 
+from lnd_layer.dim_products dp 
+union 
+select &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;
+) a
+except 
+select product_category_src_id ,
+				product_category_name ,
+				product_category_name_en 
+from layer_3nf.ce_product_categories 
+union all
+select product_category_src_id ,
+				product_category_name ,
+				product_category_name_en 
+from layer_3nf.ce_product_categories
+except 
+select * from 
+(
+select distinct product_category_id ,
+				product_category_name ,
+				product_category_name_en 
+from lnd_layer.dim_products dp 
+union 
+select &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;
+) a</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_row_by_row_ce_prod_categories</stringProp>
+          <stringProp name="resultVariable">check_row_by_row_ce_prod_categories</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_row_by_row_ce_prod_categories" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_row_by_row_ce_prod_categories_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck sum of column data length LND_LAYER.dim_invoices/EXT_LAYER.diminvoices tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (a.a_invoice_id-b.b_invoice_id) 
+	+ (a.a_invoice_no-b.b_invoice_no) 
+	+ (a.a_merch_id-b.b_merch_id) 
+	+ (a.a_ol_id-b.b_ol_id)
+	+ (a.a_date_id-b.b_date_id)
+	+ (a.a_status-b.b_status)
+	+ (a.a_statusname-b.b_status_name)
+	+ (a.a_doc_type-b.b_doc_type)
+	+ (a.a_doctypename-b.b_doc_type_name) as length_difference
+FROM 
+	(
+	SELECT sum(length(trim(invoice_id))) as a_invoice_id, 
+		   sum(length(trim(invoice_no))) as a_invoice_no, 
+		   sum(length(trim(merch_id))) as a_merch_id, 
+		   sum(length(trim(ol_id))) as a_ol_id, 
+		   sum(length(trim(date_id))) as a_date_id,
+		   sum(length(trim(status))) as a_status,
+		   sum(length(trim(statusname))) as a_statusname,
+		   sum(length(trim(doc_type))) as a_doc_type,
+		   sum(length(trim(doctypename))) as a_doctypename
+	FROM ext_layer.diminvoices
+	) a,
+	(
+	SELECT sum(length(invoice_id)) as b_invoice_id, 
+		   sum(length(invoice_no))as b_invoice_no,  
+		   sum(length(merch_id)) as b_merch_id,
+		   sum(length(ol_id)) as b_ol_id,  
+		   sum(length(date_id)) as b_date_id,
+		   sum(length(status)) as b_status,
+		   sum(length(status_name)) as b_status_name,
+		   sum(length(doc_type)) as b_doc_type,
+		   sum(length(doc_type_name)) as b_doc_type_name
+	FROM lnd_layer.dim_invoices
+	) b</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_sum_differ_from_datalenght_invoices</stringProp>
+          <stringProp name="resultVariable">check_sum_differ_from_datalenght_invoices</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_sum_differ_from_datalenght_invoices" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_sum_differ_from_datalenght_invoices_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck count of rows LND_LAYER.dim_products/LAYER_3NF.ce_product_groups tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT  a-b as difference 
+from
+(select count(*) as a from 
+		(	
+			 SELECT product_group_src_id ,
+				product_group_name ,
+				product_group_name_en
+			 FROM layer_3nf.ce_product_groups) a) lnd,
+(select count(*)+1 as b from 			 			 
+		(
+			 SELECT distinct product_group_id ,
+						product_group_name ,
+						product_group_name_en 
+			 FROM lnd_layer.dim_products) b) ext;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_count_differ_from_rows_prod_groups</stringProp>
+          <stringProp name="resultVariable">check_count_differ_from_rows_prod_groups</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_count_differ_from_rows_prod_groups" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_count_differ_from_rows_prod_groups_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck sum of column data length LND_LAYER.dim_products/LAYER_3NF.ce_product_groups tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (a.a_product_group_src_id-b_product_group_src_id)
+	  + (a_product_group_name-b_product_group_name)
+	  + (a_product_group_name_en-b_product_group_name_en) as length_difference
+FROM 
+	(
+	SELECT sum(length(product_group_id)) as a_product_group_src_id, 
+		   sum(length(product_group_name)) as a_product_group_name,  
+		   sum(length(product_group_name_en)) as a_product_group_name_en
+	FROM 
+		(
+			SELECT distinct product_group_id,
+				   product_group_name,
+				   product_group_name_en
+			FROM lnd_layer.dim_products
+			union all
+			select &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;
+		) d
+	) a,
+	(
+	SELECT sum(length(product_group_src_id)) as b_product_group_src_id, 
+		   sum(length(product_group_name))as b_product_group_name,  
+		   sum(length(product_group_name_en))as b_product_group_name_en
+	FROM layer_3nf.ce_product_groups
+	) b</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_sum_differ_from_datalenght_groups</stringProp>
+          <stringProp name="resultVariable">check_sum_differ_from_datalenght_groups</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_sum_differ_from_datalenght_groups" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_sum_differ_from_datalenght_groups_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck for the existence of LAYER_3NF.ce_product_groups table " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">select product_group_surr_id,
+	   product_group_src_id,
+	   product_group_name,
+	   product_group_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt 
+from layer_3nf.ce_product_groups
+limit 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">check_exist_3nf_prod_groups</stringProp>
+          <stringProp name="variableNames">check_exist_3nf_prod_groups</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="existence of ce_product_types table" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_3nf_prod_groups_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck row-by-rows LND_LAYER.dim_invoices/EXT_LAYER.diminvoices tables " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT invoice_id,  invoice_no, merch_id,     
+       ol_id, date_id, status, statusname, cust_id, 
+       doc_type, doctypename
+FROM EXT_LAYER.diminvoices
+EXCEPT
+SELECT invoice_id,  invoice_no, merch_id, 
+      ol_id, date_id, status, status_name, 
+      cust_id, doc_type, doc_type_name
+FROM LND_LAYER.dim_invoices
+UNION ALL
+SELECT invoice_id,  invoice_no, merch_id, 
+      ol_id, date_id, status, status_name, 
+      cust_id, doc_type, doc_type_name
+FROM LND_LAYER.dim_invoices
+EXCEPT
+SELECT invoice_id,  invoice_no, merch_id,     
+       ol_id, date_id, status, statusname, cust_id, 
+       doc_type, doctypename
+FROM EXT_LAYER.diminvoices;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_row_by_row_invoices</stringProp>
+          <stringProp name="resultVariable">check_row_by_row_invoices</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_row_by_row_invoices" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_row_by_row_invoices_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck count of rows LND_LAYER.dim_invoices/EXT_LAYER.diminvoices tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT  lnd.lnd_count-ext.ext_count as difference 
+FROM
+(SELECT count(*) as lnd_count FROM LND_LAYER.dim_invoices) lnd, 
+(SELECT count(*) as ext_count FROM EXT_LAYER.diminvoices) ext;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_count_differ_from_rows_invoices</stringProp>
+          <stringProp name="resultVariable">check_count_differ_from_rows_invoices</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_count_differ_from_rows_invoices" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_count_differ_from_rows_invoices_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck for the existence of LND_LAYER.dim_invoices table " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT invoice_id  , invoice_no
+ , merch_id , ol_id
+ , date_id , status
+ , status_name , cust_id
+ , doc_type, doc_type_name
+FROM LND_LAYER.dim_invoices
+LIMIT 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">check_exist_lnd_invoices</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">check_exist_lnd_invoices</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_lnd_invoices_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck count of rows LND_LAYER.dim_products/LAYER_3NF.ce_product_categories tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT  a-b as difference 
+from
+(select count(*) as a from 
+		(	
+			 SELECT product_category_src_id ,
+				product_category_name ,
+				product_category_name_en
+			 FROM layer_3nf.ce_product_categories) a) lnd,
+(select count(*)+1 as b from 			 			 
+		(
+			 SELECT distinct product_category_id ,
+						product_category_name ,
+						product_category_name_en 
+			 FROM lnd_layer.dim_products) b) ext;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_count_differ_from_rows_prod_categories</stringProp>
+          <stringProp name="resultVariable">check_count_differ_from_rows_prod_categories</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_count_differ_from_rows_prod_categories" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_count_differ_from_rows_prod_categories_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck for the existence of LND_LAYER.dim_merchandisers table " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT merch_id,  merch_name, merch_name_en
+, supervisor_id, supervisor_name, supervisor_name_en
+, cust_id, cust_name, cust_name_en
+, distr_id, distr_name, distr_name_en
+, city_id, city_name, district_id
+, district_name, region_id, region_name
+, country_id, country_name, division_manager_id
+, division_manager_name, region_manager_id, region_manager_name
+FROM LND_LAYER.dim_merchandisers
+LIMIT 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_exist_lnd_merchandisers</stringProp>
+          <stringProp name="resultVariable">check_exist_lnd_merchandisers</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_lnd_merchandisers_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck for the existence of LAYER_3NF.ce_product_types table " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">select  product_type_surr_id,
+		product_type_src_id,
+		product_type_name,
+		product_type_name_en,
+		src_table,
+		insert_dt,
+		update_dt 
+from layer_3nf.ce_product_types
+limit 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">check_exist_3nf_prod_types</stringProp>
+          <stringProp name="variableNames">check_exist_3nf_prod_types</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="existence of ce_product_types table" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_3nf_prod_types_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck row-by-rows LND_LAYER.dim_products/LAYER_3NF.ce_product_types tables " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select * from 
+(
+select distinct product_type_id ,
+				product_type_name ,
+				product_type_name_en 
+from lnd_layer.dim_products dp 
+union 
+select &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;
+) a
+except 
+select product_type_src_id ,
+				product_type_name ,
+				product_type_name_en 
+from layer_3nf.ce_product_types 
+union all
+select product_type_src_id ,
+				product_type_name ,
+				product_type_name_en 
+from layer_3nf.ce_product_types
+except 
+select * from 
+(
+select distinct product_type_id ,
+				product_type_name ,
+				product_type_name_en 
+from lnd_layer.dim_products dp 
+union 
+select &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;
+) a</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_row_by_row_ce_prod_types</stringProp>
+          <stringProp name="resultVariable">check_row_by_row_ce_prod_types</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_row_by_row_ce_prod_types" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_row_by_row_ce_prod_types_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck row-by-rows LND_LAYER.dim_merchandisers/EXT_LAYER.dimmerchandisers table " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT merch_id,  merch_name, merch_name_en, supervisor_id, supervisor_name, 
+      supervisor_name_en, cust_id, cust_name, cust_name_en, distr_id, distr_name, 
+      distr_name_en, city_id, city_name, district_id, district_name, region_id, region_name, 
+      country_id, country_name, divisionmanager_id, divisionmanager_name, 
+      regionmanager_id, regionmanager_name
+FROM EXT_LAYER.dimmerchandisers
+EXCEPT
+SELECT merch_id,  merch_name, merch_name_en, supervisor_id, supervisor_name,
+     supervisor_name_en, cust_id, cust_name, cust_name_en, distr_id, distr_name,  
+     distr_name_en, city_id, city_name, district_id, district_name, region_id, 
+     region_name, country_id, country_name, division_manager_id, 
+     division_manager_name, region_manager_id, region_manager_name
+FROM LND_LAYER.dim_merchandisers
+UNION ALL
+SELECT merch_id,  merch_name, merch_name_en, supervisor_id, supervisor_name, 
+     supervisor_name_en, cust_id, cust_name, cust_name_en, distr_id, distr_name, 
+     distr_name_en, city_id, city_name, district_id, district_name, region_id, region_name, 
+     country_id, country_name, division_manager_id, division_manager_name, 
+     region_manager_id, region_manager_name
+FROM LND_LAYER.dim_merchandisers
+EXCEPT
+SELECT merch_id,  merch_name, merch_name_en, supervisor_id,  supervisor_name, 
+      supervisor_name_en, cust_id, cust_name, cust_name_en, distr_id, distr_name, 
+      distr_name_en, city_id, city_name, district_id, district_name, region_id, region_name, 
+      country_id, country_name, divisionmanager_id, 
+      divisionmanager_name, regionmanager_id, regionmanager_name
+FROM EXT_LAYER.dimmerchandisers</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_row_by_row_merchandisers</stringProp>
+          <stringProp name="resultVariable">check_row_by_row_merchandisers</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_row_by_row_merchandisers" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_row_by_row_merchandisers_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck sum of column data length LND_LAYER.dim_products/LAYER_3NF.ce_product_categories tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (a.a_product_category_src_id-b_product_category_src_id)
+	  + (a_product_category_name-b_product_category_name)
+	  + (a_product_category_name_en-b_product_category_name_en) as length_difference
+FROM 
+	(
+	SELECT sum(length(product_category_id)) as a_product_category_src_id, 
+		   sum(length(product_category_name)) as a_product_category_name,  
+		   sum(length(product_category_name_en)) as a_product_category_name_en
+	FROM 
+		(
+			SELECT distinct product_category_id,
+				   product_category_name,
+				   product_category_name_en
+			FROM lnd_layer.dim_products
+                        union all
+			select &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;
+		) d
+	) a,
+	(
+	SELECT sum(length(product_category_src_id)) as b_product_category_src_id, 
+		   sum(length(product_category_name))as b_product_category_name,  
+		   sum(length(product_category_name_en))as b_product_category_name_en
+	FROM layer_3nf.ce_product_categories
+	) b</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_sum_differ_from_datalenght_categories</stringProp>
+          <stringProp name="resultVariable">check_sum_differ_from_datalenght_categories</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_sum_differ_from_datalenght_categories" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_sum_differ_from_datalenght_categories_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck  full duplicates into LAYER_3NF.ce_product_types tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select product_type_surr_id,
+	   product_type_src_id,
+	   product_type_name,
+	   product_type_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt,
+	   count(*)
+from layer_3nf.ce_product_types
+group by product_type_surr_id,
+	   product_type_src_id,
+	   product_type_name,
+	   product_type_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt
+having count(*)&gt;1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_full_duplicates_into_prod_types</stringProp>
+          <stringProp name="resultVariable">check_full_duplicates_into_prod_types</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_full_duplicates_into_prod_types" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_full_duplicates_into_prod_types_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck  full duplicates into LAYER_3NF.ce_product_categories tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select product_category_surr_id,
+	   product_category_src_id,
+	   product_category_name,
+	   product_category_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt,
+	   count(*)
+from layer_3nf.ce_product_categories
+group by product_category_surr_id,
+	   product_category_src_id,
+	   product_category_name,
+	   product_category_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt
+having count(*)&gt;1</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_full_duplicates_into_prod_categories</stringProp>
+          <stringProp name="resultVariable">check_full_duplicates_into_prod_categories</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_full_duplicates_into_prod_categories" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_full_duplicates_into_prod_categories_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck  full duplicates into LAYER_3NF.ce_product_groups tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select product_group_surr_id,
+	   product_group_src_id,
+	   product_group_name,
+	   product_group_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt,
+	   count(*)
+from layer_3nf.ce_product_groups
+group by product_group_surr_id,
+	   product_group_src_id,
+	   product_group_name,
+	   product_group_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt
+having count(*)&gt;1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_full_duplicates_into_prod_groups</stringProp>
+          <stringProp name="resultVariable">check_full_duplicates_into_prod_groups</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_full_duplicates_into_prod_groups" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_full_duplicates_into_prod_groups_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck  duplicates without PK into LAYER_3NF.ce_product_groups tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select 
+	   product_group_src_id,
+	   product_group_name,
+	   product_group_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt,
+	   count(*)
+from layer_3nf.ce_product_groups
+group by 
+	   product_group_src_id,
+	   product_group_name,
+	   product_group_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt
+having count(*)&gt;1</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_full_duplicates_into_prod_groups</stringProp>
+          <stringProp name="resultVariable">check_full_duplicates_into_prod_groups</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_full_duplicates_into_prod_groups" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_full_duplicates_into_prod_groups_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck  duplicates without PK into LAYER_3NF.ce_product_types tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select 
+	   product_type_src_id,
+	   product_type_name,
+	   product_type_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt,
+	   count(*)
+from layer_3nf.ce_product_types
+group by 
+	   product_type_src_id,
+	   product_type_name,
+	   product_type_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt
+having count(*)&gt;1</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_full_duplicates_into_prod_types</stringProp>
+          <stringProp name="resultVariable">check_full_duplicates_into_prod_types</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_full_duplicates_into_prod_types" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_full_duplicates_into_prod_types_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck  duplicates without PK into LAYER_3NF.ce_product_categories tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select 
+	   product_category_src_id,
+	   product_category_name,
+	   product_category_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt,
+	   count(*)
+from layer_3nf.ce_product_categories
+group by 
+	   product_category_src_id,
+	   product_category_name,
+	   product_category_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt
+having count(*)&gt;1</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_full_duplicates_into_prod_categories</stringProp>
+          <stringProp name="resultVariable">check_full_duplicates_into_prod_categories</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_full_duplicates_into_prod_categories" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_full_duplicates_into_prod_categories_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck for the existence of LAYER_3NF.ce_warehouses table " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">select warehouse_surr_id,
+	   warehouse_src_id,
+	   warehouse_name,
+	   city_surr_id,
+	   customer_surr_id,
+	   src_table,
+	   insert_dt,
+	   update_dt 
+from layer_3nf.ce_warehouses
+limit 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">check_exist_3nf_warehouses</stringProp>
+          <stringProp name="variableNames">check_exist_3nf_warehouses</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="existence of ce_warehouses table" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_3nf_warehouses_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck for the existence of LAYER_3NF.ce_merchandisers table " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">select merchandiser_surr_id,
+	   merchandiser_src_id,
+	   customer_surr_id,
+	   merchandiser_name,
+	   merchandiser_name_en, 
+	   src_table,
+	   insert_dt,
+	   update_dt 
+from layer_3nf.ce_merchandisers
+limit 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">check_exist_3nf_merchandisers</stringProp>
+          <stringProp name="variableNames">check_exist_3nf_merchandisers</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="existence of ce_merchandisers table" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_3nf_merchandisers_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck row-by-rows LAYER_3NF.ce_merchandisers/LND_LAYER.dim_merchandisers tables " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select merchandiser_src_id,
+	   customer_surr_id,
+	   merchandiser_name,
+	   merchandiser_name_en 
+from layer_3nf.ce_merchandisers cm 
+except
+select * from 
+	(
+		select distinct dm.merch_id,
+			   cc.customer_surr_id,
+			   dm.merch_name,
+			   dm.merch_name_en 
+		from lnd_layer.dim_merchandisers dm 
+		left join layer_3nf.ce_customers cc 
+		on cc.customer_src_id = dm.cust_id 
+		and cc.customer_name = dm.cust_name 
+		union 
+		select &apos;N/A&apos;, -1, &apos;N/A&apos;, &apos;N/A&apos;
+	) a
+union all
+select * from 
+	(
+		select distinct dm.merch_id,
+			   cc.customer_surr_id,
+			   dm.merch_name,
+			   dm.merch_name_en 
+		from lnd_layer.dim_merchandisers dm 
+		left join layer_3nf.ce_customers cc 
+		on cc.customer_src_id = dm.cust_id 
+		and cc.customer_name = dm.cust_name 
+		union all 
+		select &apos;N/A&apos;, -1, &apos;N/A&apos;, &apos;N/A&apos;
+	) a
+except
+select merchandiser_src_id,
+	   customer_surr_id,
+	   merchandiser_name,
+	   merchandiser_name_en 
+from layer_3nf.ce_merchandisers cm 
+</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_row_by_row_ce_merchandisers</stringProp>
+          <stringProp name="resultVariable">check_row_by_row_ce_merchandisers</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_row_by_row_ce_merchandisers" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_row_by_row_ce_merchandisers_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck row-by-rows LAYER_3NF.ce_warehouses/LND_LAYER.dim_warehouses tables " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select warehouse_src_id,
+	   customer_surr_id,
+	   city_surr_id,
+	   warehouse_name
+from layer_3nf.ce_warehouses cw  
+except
+select * from 
+	(
+		select distinct dw.w_id,
+						cc.customer_surr_id,
+						cc2.city_surr_id, 
+						dw.w_longname 
+		from lnd_layer.dim_warehouses dw 
+		left join layer_3nf.ce_customers cc 
+		on cc.customer_src_id = dw.cust_id 
+		and cc.customer_name = dw.cust_name 
+		left join layer_3nf.ce_cities cc2 
+		on cc2.city_src_id = dw.city_id 
+		and cc2.city_name = dw.city_name 
+		union 
+		select &apos;N/A&apos;, -1, -1, &apos;N/A&apos;
+	) a
+union all
+select * from 
+	(
+		select distinct dw.w_id,
+						cc.customer_surr_id,
+						cc2.city_surr_id, 
+						dw.w_longname 
+		from lnd_layer.dim_warehouses dw 
+		left join layer_3nf.ce_customers cc 
+		on cc.customer_src_id = dw.cust_id 
+		and cc.customer_name = dw.cust_name 
+		left join layer_3nf.ce_cities cc2 
+		on cc2.city_src_id = dw.city_id 
+		and cc2.city_name = dw.city_name 
+		union 
+		select &apos;N/A&apos;, -1, -1, &apos;N/A&apos;
+	) a
+except
+select warehouse_src_id,
+	   customer_surr_id,
+	   city_surr_id,
+	   warehouse_name
+from layer_3nf.ce_warehouses cw  
+</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_row_by_row_ce_warehouses</stringProp>
+          <stringProp name="resultVariable">check_row_by_row_ce_warehouses</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_row_by_row_ce_warehouses" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_row_by_row_ce_warehouses_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck count of rows LND_LAYER.dim_merchandisers/LAYER_3NF.ce_merchandisers tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT  a-b as difference 
+from
+(select count(*) as a from 
+		(	
+			 select merchandiser_src_id,
+				   customer_surr_id,
+				   merchandiser_name,
+				   merchandiser_name_en 
+			from layer_3nf.ce_merchandisers cm) a) lnd,
+(select count(*)+1 as b from 			 			 
+		(
+			select distinct dm.merch_id,
+				   cc.customer_surr_id,
+				   dm.merch_name,
+				   dm.merch_name_en 
+			from lnd_layer.dim_merchandisers dm 
+			left join layer_3nf.ce_customers cc 
+			on cc.customer_src_id = dm.cust_id 
+			and cc.customer_name = dm.cust_name) b) ext;
+</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_count_differ_from_rows_merchandisers</stringProp>
+          <stringProp name="resultVariable">check_count_differ_from_rows_merchandisers</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_count_differ_from_rows_merchandisers" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_count_differ_from_rows_merchandisers_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck count of rows LND_LAYER.dim_warehouses/LAYER_3NF.ce_warehouses tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT  a-b as difference 
+from
+(select count(*) as a from 
+		(	
+			 select warehouse_src_id,
+				   customer_surr_id,
+				   city_surr_id,
+				   warehouse_name
+			from layer_3nf.ce_warehouses cw ) a) lnd,
+(select count(*)+1 as b from 			 			 
+		(
+			select distinct dw.w_id,
+						cc.customer_surr_id,
+						cc2.city_surr_id, 
+						dw.w_longname 
+		from lnd_layer.dim_warehouses dw 
+		left join layer_3nf.ce_customers cc 
+		on cc.customer_src_id = dw.cust_id 
+		and cc.customer_name = dw.cust_name 
+		left join layer_3nf.ce_cities cc2 
+		on cc2.city_src_id = dw.city_id 
+		and cc2.city_name = dw.city_name ) b) ext;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_count_differ_from_rows_warehouses</stringProp>
+          <stringProp name="resultVariable">check_count_differ_from_rows_warehouses</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_count_differ_from_rows_warehouses" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_count_differ_from_rows_warehouses_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck sum of string column data length LND_LAYER.dim_merchandisers/LAYER_3NF.ce_merchandisers tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (a_merch_id-b_merchandiser_src_id)
+	  + (a_merch_name-b_merchandiser_name)
+	  + (a_merch_name_en-b_merchandiser_name_en) as length_difference
+FROM 
+	(
+	SELECT sum(length(merch_id)) as a_merch_id, 
+		   sum(length(merch_name)) as a_merch_name,  
+		   sum(length(merch_name_en)) as a_merch_name_en
+	FROM 
+		(
+			select distinct dm.merch_id,
+				   dm.merch_name,
+				   dm.merch_name_en 
+			from lnd_layer.dim_merchandisers dm 
+			union all
+			select &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;
+		) d
+	) a,
+	(
+	SELECT sum(length(merchandiser_src_id)) as b_merchandiser_src_id, 
+		   sum(length(merchandiser_name))as b_merchandiser_name,  
+		   sum(length(merchandiser_name_en))as b_merchandiser_name_en
+	FROM layer_3nf.ce_merchandisers
+	) b</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_sum_differ_from_datalenght_merchandisers</stringProp>
+          <stringProp name="resultVariable">check_sum_differ_from_datalenght_merchandisers</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_sum_differ_from_datalenght_merchandisers" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_sum_differ_from_datalenght_merchandisers_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck sum of string column data length LND_LAYER.dim_warehouses/LAYER_3NF.ce_warehouses tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (a_w_id-b_warehouse_src_id)
+	  + (a_w_longname-b_warehouse_name) as length_difference
+FROM 
+	(
+	SELECT sum(length(w_id)) as a_w_id, 
+		   sum(length(w_longname)) as a_w_longname
+	FROM 
+		(
+		select distinct dw.w_id, 
+						dw.w_longname 
+		from lnd_layer.dim_warehouses dw
+			union all
+			select &apos;N/A&apos;, &apos;N/A&apos;
+		) d
+	) a,
+	(
+	SELECT sum(length(warehouse_src_id)) as b_warehouse_src_id, 
+		   sum(length(warehouse_name))as b_warehouse_name
+	FROM layer_3nf.ce_warehouses
+	) b</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_sum_differ_from_datalenght_warehouses</stringProp>
+          <stringProp name="resultVariable">check_sum_differ_from_datalenght_warehouses</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_sum_differ_from_datalenght_warehouses" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_sum_differ_from_datalenght_warehouses_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck sum of column with integer data LND_LAYER.dim_warehouses/LAYER_3NF.ce_warehouses tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (a_customer_surr_id-b_customer_surr_id)
+	  + (a_city_surr_id-b_city_surr_id) as length_difference
+FROM 
+	(
+	SELECT sum(customer_surr_id) as a_customer_surr_id, 
+		   sum(city_surr_id) as a_city_surr_id
+	FROM 
+		(
+			select distinct dw.w_id,
+						cc.customer_surr_id,
+						cc2.city_surr_id, 
+						dw.w_longname 
+			from lnd_layer.dim_warehouses dw 
+			left join layer_3nf.ce_customers cc 
+			on cc.customer_src_id = dw.cust_id 
+			and cc.customer_name = dw.cust_name 
+			left join layer_3nf.ce_cities cc2 
+			on cc2.city_src_id = dw.city_id 
+			and cc2.city_name = dw.city_name
+			union all
+			select &apos;N/A&apos;, -1, -1, &apos;N/A&apos;
+		) d
+	) a,
+	(
+	SELECT sum(customer_surr_id) as b_customer_surr_id, 
+		   sum(city_surr_id) as b_city_surr_id
+	FROM layer_3nf.ce_warehouses
+	) b</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_sum_differ_from_datasum_warehouses</stringProp>
+          <stringProp name="resultVariable">check_sum_differ_from_datasum_warehouses</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_sum_differ_from_datasum_warehouses" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_sum_differ_from_datasum_warehouses_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck sum of column with integer data LND_LAYER.dim_merchandisers/LAYER_3NF.ce_merchandisers tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT a_customer_surr_id-b_customer_surr_id as length_difference
+FROM 
+	(
+	SELECT sum(customer_surr_id) as a_customer_surr_id
+	FROM 
+		(
+			select distinct dm.merch_id,
+				   cc.customer_surr_id,
+				   dm.merch_name,
+				   dm.merch_name_en 
+			from lnd_layer.dim_merchandisers dm 
+			left join layer_3nf.ce_customers cc 
+			on cc.customer_src_id = dm.cust_id 
+			and cc.customer_name = dm.cust_name 
+			union all
+			select &apos;N/A&apos;, -1, &apos;N/A&apos;, &apos;N/A&apos;
+		) d
+	) a,
+	(
+	SELECT sum(customer_surr_id) as b_customer_surr_id
+	FROM layer_3nf.ce_merchandisers
+	) b</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_sum_differ_from_datasum_merchandisers</stringProp>
+          <stringProp name="resultVariable">check_sum_differ_from_datasum_merchandisers</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_sum_differ_from_datasum_merchandisers" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_sum_differ_from_datasum_merchandisers_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck  full duplicates into LND_LAYER.dim_warehouses/LAYER_3NF.ce_warehouses tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select warehouse_surr_id,
+	   warehouse_src_id,
+	   warehouse_name,
+	   city_surr_id,
+	   src_table,
+	   insert_dt,
+	   update_dt,
+	   count(*)
+from layer_3nf.ce_warehouses cw 
+group by warehouse_surr_id,
+	   warehouse_src_id,
+	   warehouse_name,
+	   city_surr_id,
+	   src_table,
+	   insert_dt,
+	   update_dt
+having count(*)&gt;1</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_full_duplicates_into_warehouses</stringProp>
+          <stringProp name="resultVariable">check_full_duplicates_into_warehouses</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_full_duplicates_into_warehouses" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_full_duplicates_into_warehouses_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck  full duplicates into LND_LAYER.dim_merchandisers/LAYER_3NF.ce_merchandisers tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select merchandiser_surr_id,
+	   merchandiser_src_id,
+	   customer_surr_id,
+	   merchandiser_name,
+	   merchandiser_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt,
+	   count(*)
+from layer_3nf.ce_merchandisers cm
+group by merchandiser_surr_id,
+	   merchandiser_src_id,
+	   customer_surr_id,
+	   merchandiser_name,
+	   merchandiser_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt
+having count(*)&gt;1</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_full_duplicates_into_merchandisers</stringProp>
+          <stringProp name="resultVariable">check_full_duplicates_into_merchandisers</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_full_duplicates_into_merchandisers" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_full_duplicates_into_merchandisers_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck  duplicates without PK into LAYER_3NF.ce_merchandisers tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select 
+	   merchandiser_src_id,
+	   customer_surr_id,
+	   merchandiser_name,
+	   merchandiser_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt,
+	   count(*)
+from layer_3nf.ce_merchandisers cm
+group by 
+	   merchandiser_src_id,
+	   customer_surr_id,
+	   merchandiser_name,
+	   merchandiser_name_en,
+	   src_table,
+	   insert_dt,
+	   update_dt
+having count(*)&gt;1</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_full_duplicates_into_merchandisers</stringProp>
+          <stringProp name="resultVariable">check_full_duplicates_into_merchandisers</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_full_duplicates_into_merchandisers" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_full_duplicates_into_merchandisers_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Сheck  duplicates without PK into LAYER_3NF.ce_warehouses tables" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select 
+	   warehouse_src_id,
+	   warehouse_name,
+	   city_surr_id,
+	   src_table,
+	   insert_dt,
+	   update_dt,
+	   count(*)
+from layer_3nf.ce_warehouses cw 
+group by 
+	   warehouse_src_id,
+	   warehouse_name,
+	   city_surr_id,
+	   src_table,
+	   insert_dt,
+	   update_dt
+having count(*)&gt;1</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_full_duplicates_into_warehouses</stringProp>
+          <stringProp name="resultVariable">check_full_duplicates_into_warehouses</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_full_duplicates_into_warehouses" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_full_duplicates_into_warehouses_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check null in layer_3nf.ce_products" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select (count(*) - count(product_surr_id))
+		+ (count(*) - count(product_src_id))
+		+ (count(*) - count(product_name))
+		+ (count(*) - count(product_name_en))
+		+ (count(*) - count(product_code))
+		+ (count(*) - count(product_type_surr_id))
+		+ (count(*) - count(product_group_surr_id))
+		+ (count(*) - count(product_category_surr_id))
+		+ (count(*) - count(src_table))
+		+ (count(*) - count(insert_dt))
+		+ (count(*) - count(update_dt)) qty_null
+from layer_3nf.ce_products ;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_null_in_ce_products</stringProp>
+          <stringProp name="resultVariable">check_null_in_ce_products</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_null_in_ce_products" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_null_in_ce_products_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check null in layer_3nf.ce_product_groups" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select (count(*) - count(product_group_surr_id))
+		+ (count(*) - count(product_group_src_id))
+		+ (count(*) - count(product_group_name))
+		+ (count(*) - count(product_group_name_en))
+		+ (count(*) - count(src_table))
+		+ (count(*) - count(insert_dt))
+		+ (count(*) - count(update_dt)) qty_null
+from layer_3nf.ce_product_groups cpc ;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_null_in_ce_products_groups</stringProp>
+          <stringProp name="resultVariable">check_null_in_ce_products_groups</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_null_in_ce_products_groups" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_null_in_ce_products_groups_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check null in layer_3nf.ce_product_types" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select (count(*) - count(product_type_surr_id))
+		+ (count(*) - count(product_type_src_id))
+		+ (count(*) - count(product_type_name))
+		+ (count(*) - count(product_type_name_en))
+		+ (count(*) - count(src_table))
+		+ (count(*) - count(insert_dt))
+		+ (count(*) - count(update_dt)) qty_null
+from layer_3nf.ce_product_types cpc ;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_null_in_ce_products_types</stringProp>
+          <stringProp name="resultVariable">check_null_in_ce_products_types</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_null_in_ce_products_types" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_null_in_ce_products_types_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check constraints in layer_3nf.ce_products" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT count(conname)
+FROM pg_catalog.pg_constraint con
+INNER JOIN pg_catalog.pg_class rel
+ON rel.oid = con.conrelid
+INNER JOIN pg_catalog.pg_namespace nsp
+ON nsp.oid = connamespace
+WHERE nsp.nspname = &apos;layer_3nf&apos;
+AND rel.relname = &apos;ce_products&apos;
+AND contype=&apos;p&apos;
+union all
+SELECT count(conname)
+FROM pg_catalog.pg_constraint con
+INNER JOIN pg_catalog.pg_class rel
+ON rel.oid = con.conrelid
+INNER JOIN pg_catalog.pg_namespace nsp
+ON nsp.oid = connamespace
+WHERE nsp.nspname = &apos;layer_3nf&apos;
+AND rel.relname = &apos;ce_products&apos;
+AND contype=&apos;f&apos;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_constraints_in_ce_products</stringProp>
+          <stringProp name="resultVariable">check_constraints_in_ce_products</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_constraints_in_ce_products" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_constraints_in_ce_products_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_constraints_in_ce_products" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="51">3</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_constraints_in_ce_products_2</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check null in layer_3nf.ce_product_categories" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select (count(*) - count(product_category_surr_id))
+		+ (count(*) - count(product_category_src_id))
+		+ (count(*) - count(product_category_name))
+		+ (count(*) - count(product_category_name_en))
+		+ (count(*) - count(src_table))
+		+ (count(*) - count(insert_dt))
+		+ (count(*) - count(update_dt)) qty_null
+from layer_3nf.ce_product_categories cpc ;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_null_in_ce_products_categories</stringProp>
+          <stringProp name="resultVariable">check_null_in_ce_products_categories</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_null_in_ce_products_categories" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_null_in_ce_products_categories_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check constraints in layer_3nf.ce_product_groups" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT count(conname)
+FROM pg_catalog.pg_constraint con
+INNER JOIN pg_catalog.pg_class rel
+ON rel.oid = con.conrelid
+INNER JOIN pg_catalog.pg_namespace nsp
+ON nsp.oid = connamespace
+WHERE nsp.nspname = &apos;layer_3nf&apos;
+AND rel.relname = &apos;ce_product_groups&apos;
+AND contype=&apos;p&apos;
+union all
+SELECT count(conname)
+FROM pg_catalog.pg_constraint con
+INNER JOIN pg_catalog.pg_class rel
+ON rel.oid = con.conrelid
+INNER JOIN pg_catalog.pg_namespace nsp
+ON nsp.oid = connamespace
+WHERE nsp.nspname = &apos;layer_3nf&apos;
+AND rel.relname = &apos;ce_product_groups&apos;
+AND contype=&apos;f&apos;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_constraints_in_ce_product_groups</stringProp>
+          <stringProp name="resultVariable">check_constraints_in_ce_product_groups</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_constraints_in_ce_product_groups" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_constraints_in_ce_product_groups_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_constraints_in_ce_product_groups" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_constraints_in_ce_product_groups_2</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check constraints in layer_3nf.ce_product_types" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT count(conname)
+FROM pg_catalog.pg_constraint con
+INNER JOIN pg_catalog.pg_class rel
+ON rel.oid = con.conrelid
+INNER JOIN pg_catalog.pg_namespace nsp
+ON nsp.oid = connamespace
+WHERE nsp.nspname = &apos;layer_3nf&apos;
+AND rel.relname = &apos;ce_product_types&apos;
+AND contype=&apos;p&apos;
+union all
+SELECT count(conname)
+FROM pg_catalog.pg_constraint con
+INNER JOIN pg_catalog.pg_class rel
+ON rel.oid = con.conrelid
+INNER JOIN pg_catalog.pg_namespace nsp
+ON nsp.oid = connamespace
+WHERE nsp.nspname = &apos;layer_3nf&apos;
+AND rel.relname = &apos;ce_product_types&apos;
+AND contype=&apos;f&apos;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_constraints_in_ce_product_types</stringProp>
+          <stringProp name="resultVariable">check_constraints_in_ce_product_types</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_constraints_in_ce_product_types" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_constraints_in_ce_product_types_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_constraints_in_ce_product_types" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_constraints_in_ce_product_types_2</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check constraints in layer_3nf.ce_product_categories" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT count(conname)
+FROM pg_catalog.pg_constraint con
+INNER JOIN pg_catalog.pg_class rel
+ON rel.oid = con.conrelid
+INNER JOIN pg_catalog.pg_namespace nsp
+ON nsp.oid = connamespace
+WHERE nsp.nspname = &apos;layer_3nf&apos;
+AND rel.relname = &apos;ce_product_categories&apos;
+AND contype=&apos;p&apos;
+union all
+SELECT count(conname)
+FROM pg_catalog.pg_constraint con
+INNER JOIN pg_catalog.pg_class rel
+ON rel.oid = con.conrelid
+INNER JOIN pg_catalog.pg_namespace nsp
+ON nsp.oid = connamespace
+WHERE nsp.nspname = &apos;layer_3nf&apos;
+AND rel.relname = &apos;ce_product_categories&apos;
+AND contype=&apos;f&apos;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_constraints_in_ce_product_categories</stringProp>
+          <stringProp name="resultVariable">check_constraints_in_ce_product_categories</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_constraints_in_ce_product_categories" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_constraints_in_ce_product_categories_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check_constraints_in_ce_product_categories" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_constraints_in_ce_product_categories_2</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
     </hashTree>
   </hashTree>

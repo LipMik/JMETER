@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.4.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="postgres_test_plan_final" enabled="true">
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
@@ -31,7 +31,7 @@
           <stringProp name="checkQuery"></stringProp>
           <stringProp name="connectionAge">5000</stringProp>
           <stringProp name="connectionProperties"></stringProp>
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="dbUrl">jdbc:postgresql://ec2-18-196-104-185.eu-central-1.compute.amazonaws.com:5432/postgres</stringProp>
           <stringProp name="driver">org.postgresql.Driver</stringProp>
           <stringProp name="initQuery"></stringProp>
@@ -45,27 +45,8 @@
           <stringProp name="username">test_team</stringProp>
         </JDBCDataSource>
         <hashTree/>
-        <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="REDSHIFT" enabled="true">
-          <stringProp name="dataSource">redshift</stringProp>
-          <stringProp name="poolMax">0</stringProp>
-          <stringProp name="timeout">10000</stringProp>
-          <stringProp name="trimInterval">60000</stringProp>
-          <boolProp name="autocommit">true</boolProp>
-          <stringProp name="transactionIsolation">DEFAULT</stringProp>
-          <boolProp name="preinit">false</boolProp>
-          <stringProp name="initQuery"></stringProp>
-          <boolProp name="keepAlive">true</boolProp>
-          <stringProp name="connectionAge">5000</stringProp>
-          <stringProp name="checkQuery"></stringProp>
-          <stringProp name="dbUrl">jdbc:redshift://dalab-project-stage.cettexdsxw3v.eu-central-1.redshift.amazonaws.com/boba_db</stringProp>
-          <stringProp name="driver">com.amazon.redshift.jdbc.Driver</stringProp>
-          <stringProp name="username">boba_dqe_user</stringProp>
-          <stringProp name="password">EnaSBg)8U&amp;[mx-b</stringProp>
-          <stringProp name="connectionProperties"></stringProp>
-        </JDBCDataSource>
-        <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check exsisting LND diim_time" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT 	time_id
 		,hour_id
@@ -96,7 +77,7 @@ LIMIT 1</stringProp>
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check exsisting LND dim_invoices" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="query">SELECT invoice_id  , invoice_no
  , merch_id , ol_id
  , date_id , status
@@ -128,7 +109,7 @@ LIMIT 1</stringProp>
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check exsisting LND dim_warehouses" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT 	w_id  	 ,w_longname
 	,cust_id  ,cust_name
@@ -163,7 +144,7 @@ LIMIT 1</stringProp>
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check exsisting LND dim_warehouse_relations" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT 	w_id
 		,order_type
@@ -195,7 +176,7 @@ LIMIT 1</stringProp>
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check COUNT rows BETWEEN EXT  LND dim_invoices_in" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT lnd_count.n-ext_count.n AS dif 
 from   
@@ -224,7 +205,7 @@ from
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check COUNT rows BETWEEN EXT  LND dimwarehouserelations" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT lnd_count.n-ext_count.n AS dif 
 from 
@@ -253,7 +234,7 @@ from
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check COUNT rows BETWEEN EXT  LND dim_time" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT lnd_count.n-ext_countxt.n AS dif 
 from
@@ -282,7 +263,7 @@ from
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check COUNT rows BETWEEN EXT  LND dimwarehouses" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT lnd_count.n-ext_count.n AS dif 
 from
@@ -311,7 +292,7 @@ from
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check ROWS dif EXT_LND dim_warehouse_relations" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT 	w_id
 		,order_type
@@ -363,7 +344,7 @@ FROM ext_layer.dimwarehouserelations d
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check ROWS dif EXT_LND dim_warehouses" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT
 	w_id
@@ -464,7 +445,7 @@ FROM lnd_layer.dim_warehouses
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check ROWS dif EXT_LND dim_time" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT 	time_id
 		,hour_id
@@ -512,7 +493,7 @@ FROM ext_layer.dimtime d
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check ROWS dif EXT_LND dim_invoices_in" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT 	invoice_id
 		,invoice_no
@@ -568,7 +549,7 @@ FROM ext_layer.diminvoicesin d
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check LENGTH rows VETWEEN EXT \ LND dim_warehouse_relations" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT 	sum(trim(length(d.w_id))) AS w_id ,
 		sum(trim(length(d.ordertype))) AS ordertype ,
@@ -606,7 +587,7 @@ FROM lnd_layer.dim_warehouse_relations d2</stringProp>
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check LENGTH rows VETWEEN EXT \ LND dimwarehouses" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT 	sum(length(trim(d.w_id))) w_id, 
 		sum(length(trim(d.w_longname))) w_longname, 
@@ -667,7 +648,7 @@ FROM lnd_layer.dim_warehouses d2;</stringProp>
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check LENGTH rows VETWEEN EXT \ LND dim_time" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">SELECT sum(length(trim(d.timeid))) timeid ,
 		sum(length(trim(d.hourid))) hourid ,
@@ -703,7 +684,7 @@ FROM lnd_layer.dim_time d</stringProp>
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check LENGTH rows VETWEEN EXT \ LND dim_invoices_in" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">
 SELECT 
@@ -746,7 +727,7 @@ FROM lnd_layer.dim_invoices_in d </stringProp>
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check METADATA LND DIM_TIME" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">WITH 
 golden_metadata AS
@@ -813,7 +794,7 @@ SELECT * FROM golden_metadata gm</stringProp>
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check METADATA LND DIM_INVOICES_IN" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">WITH 
 golden_metadata AS
@@ -887,7 +868,7 @@ SELECT * FROM golden_metadata gm;
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check METADATA LND  dim_warehouse_relations" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">WITH 
 golden_metadata AS
@@ -958,7 +939,7 @@ SELECT * FROM golden_metadata gm;
           <hashTree/>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check METADATA LND  dim_warehouse" enabled="true">
-          <stringProp name="dataSource">postgre_conn</stringProp>
+          <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">WITH 
 golden_metadata AS
@@ -1061,43 +1042,6 @@ SELECT * FROM golden_metadata gm;
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>true</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-              <sentBytes>true</sentBytes>
-              <url>true</url>
-              <threadCounts>true</threadCounts>
-              <idleTime>true</idleTime>
-              <connectTime>true</connectTime>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-        </ResultCollector>
-        <hashTree/>
       </hashTree>
     </hashTree>
   </hashTree>

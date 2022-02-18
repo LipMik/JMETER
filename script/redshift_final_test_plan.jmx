@@ -3230,6 +3230,1698 @@ AND contype=&apos;f&apos;</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check existence of nd_layer.fct_archivedstocks_evening" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT w_id,
+		date_id,
+		product_id,
+		stock,
+		stock_in_packages, 
+		part_id
+FROM LND_LAYER.fct_archivedstocks_evening 
+LIMIT 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">check_exist_fct_archivedstocks_evening</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">check_exist_fct_archivedstocks_evening</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_fct_archivedstocks_evening_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check  ext_layer.factarchivedstocksevening and nd_layer.fct_archivedstocks_evening" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT  w_id, date_id,
+               product_id, stock,
+               stockinpackages, part_id
+FROM ext_layer.factarchivedstocksevening
+EXCEPT 
+SELECT w_id,date_id,
+              product_id, stock,
+              stock_in_packages,part_id
+FROM lnd_layer.fct_archivedstocks_evening
+UNION ALL
+SELECT w_id, date_id,
+              product_id, stock,
+              stock_in_packages, part_id
+FROM lnd_layer.fct_archivedstocks_evening
+EXCEPT
+SELECT  w_id, date_id, 
+               product_id, stock,
+               stockinpackages, part_id
+FROM ext_layer.factarchivedstocksevening;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">a</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">a</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">a_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare count of rows  in tables ext_layer.factarchivedstocksevening andnd_layer.fct_archivedstocks_evening" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT (source.n-target.n) as count
+FROM
+(SELECT count(*) as n FROM ext_layer.factarchivedstocksevening) source,
+(SELECT count(*) as n FROM lnd_layer.fct_archivedstocks_evening) target;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">count</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">count</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="the same count of rows in tables ext_layer.factarchivedstocksevening and nd_layer.fct_archivedstocks_evening" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">count_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check metadata lnd_layer.fct_archivedstocks_evening" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">WITH golden_metadata AS
+(
+SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;w_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;date_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;product_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;stock&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;stock_in_packages&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;part_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;is_processed&apos; AS column_name, &apos;boolean&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;false&apos; AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+)
+SELECT gm.table_name AS golden_table_name,
+gm.column_name AS golden_column_name,
+gm.data_type AS golden_data_type,
+gm.character_maximum_length AS golden_character_maximum_length,
+gm.is_nullable AS golden_is_nullable,
+gm.column_default AS golden_column_default
+FROM golden_metadata gm
+except
+SELECT utc.table_name AS utc_table_name,
+utc.column_name AS utc_column_name,
+utc.data_type AS utc_data_type,
+utc.character_maximum_length AS utc_character_maximum_length,
+utc.is_nullable AS utc_is_nullable,
+utc.column_default AS utc_column_default
+FROM information_schema.columns utc
+WHERE table_name=&apos;fct_archivedstocks_evening&apos;
+union all
+SELECT utc.table_name AS utc_table_name,
+utc.column_name AS utc_column_name,
+utc.data_type AS utc_data_type,
+utc.character_maximum_length AS utc_character_maximum_length,
+utc.is_nullable AS utc_is_nullable,
+utc.column_default AS utc_column_default
+FROM information_schema.columns utc
+WHERE table_name=&apos;fct_archivedstocks_evening&apos;
+except
+SELECT gm.table_name AS golden_table_name,
+gm.column_name AS golden_column_name,
+gm.data_type AS golden_data_type,
+gm.character_maximum_length AS golden_character_maximum_length,
+gm.is_nullable AS golden_is_nullable,
+gm.column_default AS golden_column_default
+FROM golden_metadata gm;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">a</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">a</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="metadata lnd_layer.fct_archivedstocks_evening" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">a_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of length in  tables ext_layer.factarchivedstocksevening andnd_layer.fct_archivedstocks_evening" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">select 
+		((ext.w_id - lnd.w_id)
+		+ (ext.date_id - lnd.date_id)
+		+ (ext.product_id - lnd.product_id)
+		+ (ext.stock - lnd.stock)
+		+ (ext.stockinpackages - lnd.stock_in_packages)
+		+(ext.part_id - lnd.part_id)) as dif
+FROM
+(SELECT sum (length(TRIM (w_id))) as w_id,
+		sum (length(TRIM (date_id))) as date_id,
+		sum (length(TRIM (product_id))) as product_id,
+		sum (length(TRIM (stock))) as stock,
+		sum (length(TRIM (stockinpackages))) as stockinpackages, 
+		sum (length(TRIM (part_id))) as part_id
+FROM EXT_LAYER.factarchivedstocksevening) ext, 
+(SELECT sum (length(w_id)) as w_id,
+		sum (length(date_id)) as date_id,
+		sum (length(product_id)) as product_id,
+		sum (length(stock)) as stock,
+		sum (length(stock_in_packages)) as stock_in_packages, 
+		sum (length(part_id)) as part_id
+FROM LND_LAYER.fct_archivedstocks_evening) lnd;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">d</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">d</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="the same sum of length in tables ext_layer.factarchivedstocksevening andnd_layer.fct_archivedstocks_evening" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">d_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check existence of lnd_layer.fct_archivedstocks_morning" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT w_id,
+		date_id,
+		product_id,
+		stock,
+		stock_in_packages, 
+		part_id
+FROM LND_LAYER.fct_archivedstocks_morning 
+LIMIT 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">check_exist_fct_archivedstocks_morning</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">check_exist_fct_archivedstocks_morning</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_fct_archivedstocks_morning_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check ext_layer.factarchivedstocksmorning and lnd_layer.fct_archivedstocks_morning" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT  w_id, date_id,
+               product_id, stock,
+               stockinpackages, part_id
+FROM ext_layer.factarchivedstocksmorning				
+EXCEPT 
+SELECT w_id, date_id,
+              product_id, stock,
+              stock_in_packages, part_id
+FROM lnd_layer.fct_archivedstocks_morning
+UNION ALL
+SELECT w_id, date_id,
+              product_id, stock,
+              stock_in_packages, part_id
+FROM lnd_layer.fct_archivedstocks_morning
+EXCEPT
+SELECT  w_id, date_id,
+               product_id, stock,
+               stockinpackages, part_id
+FROM ext_layer.factarchivedstocksmorning;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">b</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">b</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">b_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare count of rows  in tables ext_layer.factarchivedstocksmorning and lnd_layer.fct_archivedstocks_morning" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT source.n, 
+       target.n, 
+       (source.n-target.n) as differ
+FROM
+(SELECT count(*) as n FROM ext_layer.factarchivedstocksmorning) source,
+(SELECT count(*) as n FROM lnd_layer.fct_archivedstocks_morning) target;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">A,B,C</stringProp>
+          <stringProp name="variableNames">A,B,C</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="the same count of rows in tables ext_layer.factarchivedstocksmorning and lnd_layer.fct_archivedstocks_morning" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">C_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check metadata lnd_layer.fct_archivedstocks_morning" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">WITH golden_metadata AS
+(
+SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;w_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;date_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;product_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;stock&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;stock_in_packages&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;part_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;is_processed&apos; AS column_name, &apos;boolean&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;false&apos; AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+
+UNION ALL
+SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+)
+SELECT gm.table_name AS golden_table_name,
+gm.column_name AS golden_column_name,
+gm.data_type AS golden_data_type,
+gm.character_maximum_length AS golden_character_maximum_length,
+gm.is_nullable AS golden_is_nullable,
+gm.column_default AS golden_column_default
+FROM golden_metadata gm
+except
+SELECT utc.table_name AS utc_table_name,
+utc.column_name AS utc_column_name,
+utc.data_type AS utc_data_type,
+utc.character_maximum_length AS utc_character_maximum_length,
+utc.is_nullable AS utc_is_nullable,
+utc.column_default AS utc_column_default
+FROM information_schema.columns utc
+WHERE table_name=&apos;fct_archivedstocks_morning&apos;
+union all
+SELECT utc.table_name AS utc_table_name,
+utc.column_name AS utc_column_name,
+utc.data_type AS utc_data_type,
+utc.character_maximum_length AS utc_character_maximum_length,
+utc.is_nullable AS utc_is_nullable,
+utc.column_default AS utc_column_default
+FROM information_schema.columns utc
+WHERE table_name=&apos;fct_archivedstocks_morning&apos;
+except
+SELECT gm.table_name AS golden_table_name,
+gm.column_name AS golden_column_name,
+gm.data_type AS golden_data_type,
+gm.character_maximum_length AS golden_character_maximum_length,
+gm.is_nullable AS golden_is_nullable,
+gm.column_default AS golden_column_default
+FROM golden_metadata gm;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">b</stringProp>
+          <stringProp name="variableNames">b</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="metadata lnd_layer.fct_archivedstocks_morning" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">b_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of length in tables lnd_layer.fct_archivedstocks_morning and ext_layer.factarchivedstocksmorning" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">select 
+		((ext.w_id - lnd.w_id)
+		+ (ext.date_id - lnd.date_id)
+		+ (ext.product_id - lnd.product_id)
+		+ (ext.stock - lnd.stock)
+		+ (ext.stockinpackages - lnd.stock_in_packages)
+		+(ext.part_id - lnd.part_id)) as dif
+FROM
+(SELECT sum (length(TRIM (w_id))) as w_id,
+		sum (length(TRIM (date_id))) as date_id,
+		sum (length(TRIM (product_id))) as product_id,
+		sum (length(TRIM (stock))) as stock,
+		sum (length(TRIM (stockinpackages))) as stockinpackages, 
+		sum (length(TRIM (part_id))) as part_id
+FROM EXT_LAYER.factarchivedstocksmorning) ext, 
+(SELECT sum (length(w_id)) as w_id,
+		sum (length(date_id)) as date_id,
+		sum (length(product_id)) as product_id,
+		sum (length(stock)) as stock,
+		sum (length(stock_in_packages)) as stock_in_packages, 
+		sum (length(part_id)) as part_id
+FROM LND_LAYER.fct_archivedstocks_morning) lnd;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">e</stringProp>
+          <stringProp name="variableNames">e</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="the same sum of length in tables  lnd_layer.fct_archivedstocks_morning and ext_layer.factarchivedstocksmorning" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">e_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check existence of lnd_layer.fct_outlet_card_h" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT olcard_id, date_id,
+		merch_id, ol_id,
+		success,  olcard_date,
+		begin_min_id, end_min_id,
+		mins_spent, begin_time,
+		end_time, part_id
+FROM LND_LAYER.fct_outlet_card_h
+LIMIT 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">check_exist_fct_outlet_card_h</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">check_exist_fct_outlet_card_h</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_fct_outlet_card_h_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check   lnd_layer.fct_outlet_card_h and ext_layer.factoutletcardh" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT olcard_id, date_id, merch_id, 
+              ol_id, success, olcard_date,
+              begin_min_id, end_min_id, mins_spent,
+              begin_time, end_time, part_id
+FROM LND_LAYER.fct_outlet_card_h
+EXCEPT 
+SELECT olcard_id, date_id, merch_id, 
+              ol_id, success, olcarddate,
+              beginminuteid, endminuteid, minutesspent,
+              begintime, endtime, part_id
+FROM EXT_LAYER.factoutletcardh
+UNION ALL
+SELECT olcard_id, date_id, merch_id,
+              ol_id, success, olcarddate,
+               beginminuteid, endminuteid, minutesspent,
+               begintime, endtime, part_id
+FROM EXT_LAYER.factoutletcardh
+EXCEPT 
+SELECT olcard_id, date_id, merch_id, 
+              ol_id, success, olcard_date,
+              begin_min_id, end_min_id, mins_spent,
+              begin_time, end_time, part_id
+FROM LND_LAYER.fct_outlet_card_h;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">c</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">c</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">c_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="the compare count of rows  in tables  lnd_layer.fct_outlet_card_h and ext_layer.factoutletcardh" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT source.n as rows_ext_factoutletorderd, 
+       target.n as rows_lnd_fct_outlet_order_d, 
+       (source.n-target.n) as differ
+FROM
+(SELECT count(*) as n FROM ext_layer.factoutletorderd) source,
+(SELECT count(*) as n FROM lnd_layer.fct_outlet_order_d) target;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">A,B,C</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">A,B,C</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="same count of rows in tables fct_outlet_card_h and  factoutletcardh" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">C_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check metadata lnd_layer.fct_outlet_card_h" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">WITH golden_metadata AS
+(
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;olcard_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;date_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;merch_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;ol_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;success&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;olcard_date&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;begin_min_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;end_min_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;mins_spent&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;begin_time&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;end_time&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;part_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;is_processed&apos; AS column_name, &apos;boolean&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;false&apos; AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+
+UNION ALL
+SELECT &apos;fct_outlet_card_h&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+)
+SELECT gm.table_name AS golden_table_name,
+gm.column_name AS golden_column_name,
+gm.data_type AS golden_data_type,
+gm.character_maximum_length AS golden_character_maximum_length,
+gm.is_nullable AS golden_is_nullable,
+gm.column_default AS golden_column_default
+FROM golden_metadata gm
+except
+SELECT utc.table_name AS utc_table_name,
+utc.column_name AS utc_column_name,
+utc.data_type AS utc_data_type,
+utc.character_maximum_length AS utc_character_maximum_length,
+utc.is_nullable AS utc_is_nullable,
+utc.column_default AS utc_column_default
+FROM information_schema.columns utc
+WHERE table_name=&apos;fct_outlet_card_h&apos;
+union all
+SELECT utc.table_name AS utc_table_name,
+utc.column_name AS utc_column_name,
+utc.data_type AS utc_data_type,
+utc.character_maximum_length AS utc_character_maximum_length,
+utc.is_nullable AS utc_is_nullable,
+utc.column_default AS utc_column_default
+FROM information_schema.columns utc
+WHERE table_name=&apos;fct_outlet_card_h&apos;
+except
+SELECT gm.table_name AS golden_table_name,
+gm.column_name AS golden_column_name,
+gm.data_type AS golden_data_type,
+gm.character_maximum_length AS golden_character_maximum_length,
+gm.is_nullable AS golden_is_nullable,
+gm.column_default AS golden_column_default
+FROM golden_metadata gm;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">c</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">c</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="metadata fct_outlet_card_h" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">c_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of length in tables lnd_layer.fct_outlet_card_h and  ext_layer.factoutletcardh" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">select 
+		((ext.olcard_id - lnd.olcard_id)
+		+ (ext.date_id - lnd.date_id)
+		+ (ext.merch_id - lnd.merch_id)
+		+ (ext.ol_id - lnd.ol_id)
+		+ (ext.success - lnd.success)
+		+ (ext.olcarddate - lnd.olcard_date)
+		+ (ext.beginminuteid - lnd.begin_min_id)
+		+ (ext.endminuteid - lnd.end_min_id)
+		+ (ext.begintime - lnd.begin_time)
+		+ (ext.endtime - lnd.end_time)
+		+ (ext.part_id - lnd.part_id)) as dif
+FROM
+(SELECT sum (length(TRIM (olcard_id))) as olcard_id,
+		sum (length(TRIM (date_id))) as date_id,
+		sum (length(TRIM (merch_id))) as merch_id,
+		sum (length(TRIM (ol_id))) as ol_id,
+		sum (length(TRIM (success))) as success, 
+		sum (length(TRIM (olcarddate))) as olcarddate,
+		sum (length(TRIM (beginminuteid))) as beginminuteid,
+		sum (length(TRIM (endminuteid))) as endminuteid,
+		sum (length(TRIM (begintime))) as begintime,
+		sum (length(TRIM (endtime))) as endtime, 
+		sum (length(TRIM (part_id))) as part_id
+FROM EXT_LAYER.factoutletcardh) ext, 
+(SELECT sum (length(olcard_id)) as olcard_id,
+		sum (length (date_id)) as date_id,
+		sum (length (merch_id)) as merch_id,
+		sum (length (ol_id)) as ol_id,
+		sum (length (success)) as success, 
+		sum (length (olcard_date)) as olcard_date,
+		sum (length (begin_min_id)) as begin_min_id,
+		sum (length (end_min_id)) as end_min_id,
+		sum (length (begin_time)) as begin_time,
+		sum (length (end_time)) as end_time, 
+		sum (length (part_id)) as part_id
+FROM LND_LAYER.fct_outlet_card_h) lnd;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">f</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">f</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="the same sum of length in tables  lnd_layer.fct_outlet_card_h and  ext_layer.factoutletcardh" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">f_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check existence of layer_3nf.ce_countries " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT country_surr_id, 
+		country_src_id,
+		country_name,
+		src_table,
+		insert_dt, 
+		update_dt
+FROM layer_3nf.ce_countries
+LIMIT 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_exist_3nf.ce_countries</stringProp>
+          <stringProp name="resultVariable">check_exist_3nf.ce_countries</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname=" existence of layer_3nf.ce_countries" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_3nf.ce_countries_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check metadata layer_3nf.ce_countries" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">WITH golden_metadata AS
+(
+SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;country_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;nextval(layer_3nf.ce_countries_seq::regclass)&apos; column_default
+UNION ALL
+SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;country_src_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION ALL
+SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;country_name&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION ALL
+SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;src_table&apos; AS column_name, &apos;character varying&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION ALL
+SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT DATE&apos; AS column_default
+UNION ALL
+SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT DATE&apos; AS column_default
+), utc AS
+(
+SELECT table_name,
+column_name,
+data_type,
+character_maximum_length,
+is_nullable,
+column_default
+FROM information_schema.columns
+WHERE table_name=&apos;layer_3nf.ce_countries&apos;
+)
+SELECT *
+FROM golden_metadata 
+except
+SELECT *
+FROM utc
+UNION ALL
+SELECT * FROM utc
+EXCEPT
+SELECT * FROM golden_metadata;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">meta</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">meta</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="metadata layer_3nf.ce_countries" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">meta_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check NULLS  in table layer_3nf.ce_countries" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select (count(*) - count(country_surr_id))
+		+ (count(*) - count(country_src_id))
+		+ (count(*) - count(country_name))
+		+ (count(*) - count(src_table))
+		+ (count(*) - count(insert_dt))
+		+ (count(*) - count(update_dt)) qty_null
+from layer_3nf.ce_countries;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">null3</stringProp>
+          <stringProp name="resultVariable">null3</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="NULLs" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">null3_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row of layer_3nf.ce_countries  and lnd_layer" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select * from 
+(
+select distinct country_id, country_name
+from lnd_layer.dim_merchandisers
+union
+select distinct country_id, country_name
+from lnd_layer.dim_warehouses
+union 
+select &apos;N/A&apos;, &apos;N/A&apos;
+) a
+except 
+select country_src_id, country_name
+from layer_3nf.ce_countries
+union all
+select country_src_id, country_name
+from layer_3nf.ce_countries
+except 
+select * from 
+(
+select distinct country_id, country_name
+from lnd_layer.dim_merchandisers
+union
+select distinct country_id, country_name
+from lnd_layer.dim_warehouses
+union 
+select &apos;N/A&apos;, &apos;N/A&apos;
+) a;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">row</stringProp>
+          <stringProp name="resultVariable">row</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="row by row check layer_3nf.ce_countries and lnd_layer" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">row_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare count of rows  in tables layer_3nf.ce_countries  and lnd_layer" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT ((source.n+1)-target.n) as differ
+FROM
+(
+	select count(*) as n
+	from (	select distinct country_id, country_name
+			from lnd_layer.dim_merchandisers
+			union
+			select distinct country_id, country_name
+			from lnd_layer.dim_warehouses)a
+)source,
+(SELECT count(*) as n FROM layer_3nf.ce_countries) target;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">count2</stringProp>
+          <stringProp name="resultVariable">count2</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="same count of rows  in tables layer_3nf.ce_countries  and lnd_layer" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">count2_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of length in tables layer_3nf.ce_countries  and lnd_layer" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT ((source_country_id-target_country_id)
+		+ (source_country_name-target_country_name)) as difference
+FROM
+(select sum(length (country_id)) as source_country_id, sum(length (country_name)) as source_country_name
+from (
+		select distinct country_id, country_name
+		from lnd_layer.dim_merchandisers
+		union
+		select distinct country_id, country_name
+		from lnd_layer.dim_warehouses
+		union 
+		select &apos;N/A&apos;, &apos;N/A&apos;
+		) a)source, 		
+(select sum(length (country_src_id)) as target_country_id, sum(length (country_name)) as target_country_name
+from layer_3nf.ce_countries) target</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">sumlen</stringProp>
+          <stringProp name="variableNames">sumlen</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="the same sum of length in tables  layer_3nf.ce_countries  and lnd_layer" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">sumlen_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check full duplicates  in table layer_3nf.ce_countries" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select country_surr_id, 
+		country_src_id,
+		country_name,
+		src_table,
+		insert_dt, 
+		update_dt,
+		count(*)
+from layer_3nf.ce_countries
+group by country_surr_id, 
+		country_src_id,
+		country_name,
+		src_table,
+		insert_dt, 
+		update_dt
+having count(*)&gt;1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">dupl</stringProp>
+          <stringProp name="resultVariable">dupl</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="duplicates " enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">dupl_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check duplicates  in table layer_3nf.ce_countries" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select country_src_id,
+		country_name,
+		src_table,
+		insert_dt, 
+		update_dt,
+		count(*)
+from layer_3nf.ce_countries
+group by country_src_id,
+		country_name,
+		src_table,
+		insert_dt, 
+		update_dt
+having count(*)&gt;1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">dupl2</stringProp>
+          <stringProp name="resultVariable">dupl2</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="duplicates " enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">dupl2_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check existence of layer_3nf.ce_regions" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT region_surr_id, 
+		region_src_id,
+		country_surr_id,
+		region_name,
+		src_table,
+		insert_dt, 
+		update_dt
+FROM layer_3nf.ce_regions
+LIMIT 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_exist_3nf.ce_regions</stringProp>
+          <stringProp name="resultVariable">check_exist_3nf.ce_regions</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname=" existence of layer_3nf.ce_regions" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_3nf.ce_regions_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check metadata layer_3nf.ce_regions" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">WITH golden_metadata AS
+(
+SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;region_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;nextval(layer_3nf.ce_regions_seq::regclass)&apos; column_default
+UNION ALL
+SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;region_src_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION all
+SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;country_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS  column_default
+UNION all
+SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;region_name&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION ALL
+SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;src_table&apos; AS column_name, &apos;character varying&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION ALL
+SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT DATE&apos; AS column_default
+UNION ALL
+SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT DATE&apos; AS column_default
+), utc AS
+(
+SELECT table_name,
+column_name,
+data_type,
+character_maximum_length,
+is_nullable,
+column_default
+FROM information_schema.columns
+WHERE table_name=&apos;layer_3nf.ce_regions&apos;
+)
+SELECT *
+FROM golden_metadata 
+except
+SELECT *
+FROM utc
+UNION ALL
+SELECT * FROM utc
+EXCEPT
+SELECT * FROM golden_metadata;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">meta1</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">meta1</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="metadata layer_3nf.ce_regions" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">meta1_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check NULLS  in table layer_3nf.ce_regions" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select (count(*) - count(region_surr_id))
+		+ (count(*) - count(region_src_id))
+		+ (count(*) - count(country_surr_id))
+		+ (count(*) - count(region_name))
+		+ (count(*) - count(src_table))
+		+ (count(*) - count(insert_dt))
+		+ (count(*) - count(update_dt)) qty_null
+from layer_3nf.ce_regions;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">null2</stringProp>
+          <stringProp name="resultVariable">null2</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="NULLs" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">null2_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row of layer_3nf.ce_regions and lnd_layer" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select * from 
+(
+select distinct region_id, region_name
+from lnd_layer.dim_merchandisers
+union
+select distinct region_id, region_name
+from lnd_layer.dim_warehouses
+union 
+select &apos;N/A&apos;, &apos;N/A&apos;
+) a
+except 
+select region_src_id, region_name
+from layer_3nf.ce_regions
+union all
+select region_src_id, region_name
+from layer_3nf.ce_regions
+except 
+select * from 
+(
+select distinct region_id, region_name
+from lnd_layer.dim_merchandisers
+union
+select distinct region_id, region_name
+from lnd_layer.dim_warehouses
+union 
+select &apos;N/A&apos;, &apos;N/A&apos;
+) a;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">row1</stringProp>
+          <stringProp name="resultVariable">row1</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="row by row check layer_3nf.ce_regions and lnd_layer" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">row1_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare count of rows  in tables layer_3nf.ce_regions  and lnd_layer" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (source.n+1 -target.n) as differ
+FROM
+(
+	select count(*) as n
+	from (	select distinct region_id, region_name
+			from lnd_layer.dim_merchandisers
+			union
+			select distinct region_id, region_name
+			from lnd_layer.dim_warehouses)a
+)source,
+(SELECT count(*) as n FROM layer_3nf.ce_regions) target;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">count3</stringProp>
+          <stringProp name="resultVariable">count3</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="same count of rows  in tables layer_3nf.ce_regions  and lnd_layer" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">count3_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of length in tables layer_3nf.ce_regions  and lnd_layer" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">SELECT ((source_country_id-target_country_id)
+		+ (source_country_name-target_country_name)) as difference
+FROM
+(select sum(length (country_id)) as source_country_id, sum(length (country_name)) as source_country_name
+from (
+		select distinct country_id, country_name
+		from lnd_layer.dim_merchandisers
+		union
+		select distinct country_id, country_name
+		from lnd_layer.dim_warehouses
+		union 
+		select &apos;N/A&apos;, &apos;N/A&apos;
+		) a)source, 		
+(select sum(length (country_src_id)) as target_country_id, sum(length (country_name)) as target_country_name
+from layer_3nf.ce_countries) target</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">sumlen1</stringProp>
+          <stringProp name="variableNames">sumlen1</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="the same sum of length in tables layer_3nf.ce_regions  and lnd_layer" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">sumlen1_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check full duplicates  in tables layer_3nf.ce_regions" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select region_surr_id, 
+		region_src_id,
+		country_surr_id,
+		region_name,
+		src_table,
+		insert_dt, 
+		update_dt, 
+		count(*)
+from layer_3nf.ce_regions
+group by region_surr_id, 
+		region_src_id,
+		country_surr_id,
+		region_name,
+		src_table,
+		insert_dt, 
+		update_dt
+having count(*)&gt;1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">dupl1</stringProp>
+          <stringProp name="resultVariable">dupl1</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="duplicates " enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">dupl1_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check duplicates  in tables layer_3nf.ce_regions" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select 	region_src_id,
+		country_surr_id,
+		region_name,
+		src_table,
+		insert_dt, 
+		update_dt, 
+		count(*)
+from layer_3nf.ce_regions
+group by region_src_id,
+		country_surr_id,
+		region_name,
+		src_table,
+		insert_dt, 
+		update_dt
+having count(*)&gt;1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">dupl3</stringProp>
+          <stringProp name="resultVariable">dupl3</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="duplicates " enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">dupl3_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check existence of layer_3nf.ce_sales_out" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select merchandiser_surr_id, outlet_surr_id, product_surr_id, invoice_id, invoice_number, order_number, date_id, status, 
+status_name, product_quantity, package_quantity, weight_kg, amount, price
+from layer_3nf.ce_sales_out
+limit 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">check_exist_3nf.ce_sales_out</stringProp>
+          <stringProp name="resultVariable">check_exist_3nf.ce_sales_out</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname=" existence of layer_3nf.ce_sales_out" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">check_exist_3nf.ce_sales_out_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare count of rows  in tables  layer_3nf.ce_sales_out and lnd_layer.fct_sales_out_d" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (source.n-target.n) as differ
+FROM
+(SELECT count(*) as n FROM (SELECT distinct * from lnd_layer.fct_sales_out_d) a) source,
+(SELECT count(*) as n FROM layer_3nf.ce_sales_out) target;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">count4</stringProp>
+          <stringProp name="resultVariable">count4</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="same count of rows  in tables  layer_3nf.ce_sales_out and lnd_layer.fct_sales_out_d" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">count4_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check NULLS  in table layer_3nf.ce_sales_out" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select (count(*) - count(merchandiser_surr_id))
+		+ (count(*) - count(outlet_surr_id))
+		+ (count(*) - count(product_surr_id))
+		+ (count(*) - count(invoice_id))
+		+ (count(*) - count(invoice_number))
+		+ (count(*) - count(date_id))
+		+ (count(*) - count(status))
+		+ (count(*) - count(status_name))
+		+ (count(*) - count(product_quantity))
+		+ (count(*) - count(package_quantity))
+		+ (count(*) - count(weight_kg))
+		+ (count(*) - count(amount))
+		+ (count(*) - count(price))
+		+ (count(*) - count(insert_dt))
+		+ (count(*) - count(update_dt)) qty_null
+from layer_3nf.ce_sales_out;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">null1</stringProp>
+          <stringProp name="resultVariable">null1</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="NULLs" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">null1_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row of layer_3nf.ce_sales_out and lnd_layer.fct_sales_out_d" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select merch_id, ol_id, product_id, invoice_id, invoice_no, ((order_no):: bigint) as order_no, to_date (date_id, &apos;YYYYMMDD&apos;) as date_id, ((status):: integer) as status, 
+status_name, abs(round((product_qty)::numeric(10, 2))) as product_qty, 
+case
+	when abs(round((package_qty)::numeric(10, 2), 2)) =0 then 1
+	else abs(round((package_qty)::numeric(10, 2), 2))
+end as package_qty,
+case 
+	when abs (round((weight_kg)::numeric(10, 2), 2)) = 0 then 1
+	else abs(round((weight_kg)::numeric(10, 2), 2))
+end as weight_kg,
+case 
+	when abs(round((amount)::numeric(10, 2), 2)) = 0 then 1
+	else abs(round((amount)::numeric(10, 2), 2))
+end as amount,
+case
+	when abs (round((price)::numeric(10, 2), 2)) = 0 then 1
+	else abs (round((price)::numeric(10, 2), 2))
+end as price
+from (select merch_id, ol_id, product_id, invoice_id, invoice_no, order_no, date_id, status, 
+status_name, product_qty, package_qty, weight_kg, amount, cust_id, price, part_id
+	from lnd_layer.fct_sales_out_d
+	group by merch_id, ol_id, product_id, invoice_id, invoice_no, order_no, date_id, status, 
+status_name, product_qty, package_qty, weight_kg, amount, cust_id, price, part_id)a
+EXCEPT
+select m.merchandiser_src_id, o.outlet_src_id, p.product_src_id, s.invoice_id, s.invoice_number, s.order_number, s.date_id, s.status, 
+s.status_name, s.product_quantity, s.package_quantity, s.weight_kg, s.amount, s.price
+from layer_3nf.ce_sales_out s
+inner join layer_3nf.ce_merchandisers m
+on s.merchandiser_surr_id = m.merchandiser_surr_id
+inner join layer_3nf.ce_products p
+on p.product_surr_id = s.product_surr_id
+inner join layer_3nf.ce_outlets o
+on s.outlet_surr_id = o.outlet_surr_id
+union all 
+select m.merchandiser_src_id, o.outlet_src_id, p.product_src_id, s.invoice_id, s.invoice_number, s.order_number, s.date_id, s.status, 
+s.status_name, s.product_quantity, s.package_quantity, s.weight_kg, s.amount, s.price
+from layer_3nf.ce_sales_out s
+inner join layer_3nf.ce_merchandisers m
+on s.merchandiser_surr_id = m.merchandiser_surr_id
+inner join layer_3nf.ce_products p
+on p.product_surr_id = s.product_surr_id
+inner join layer_3nf.ce_outlets o
+on s.outlet_surr_id = o.outlet_surr_id
+EXCEPT
+select merch_id, ol_id, product_id, invoice_id, invoice_no, ((order_no):: bigint) as order_no, to_date (date_id, &apos;YYYYMMDD&apos;) as date_id, ((status):: integer) as status, 
+status_name, abs(round((product_qty)::numeric(10, 2))) as product_qty, 
+case
+	when abs(round((package_qty)::numeric(10, 2), 2)) =0 then 1
+	else abs(round((package_qty)::numeric(10, 2), 2))
+end as package_qty,
+case 
+	when abs (round((weight_kg)::numeric(10, 2), 2)) = 0 then 1
+	else abs(round((weight_kg)::numeric(10, 2), 2))
+end as weight_kg,
+case 
+	when abs(round((amount)::numeric(10, 2), 2)) = 0 then 1
+	else abs(round((amount)::numeric(10, 2), 2))
+end as amount,
+case
+	when abs (round((price)::numeric(10, 2), 2)) = 0 then 1
+	else abs (round((price)::numeric(10, 2), 2))
+end as price
+from (select merch_id, ol_id, product_id, invoice_id, invoice_no, order_no, date_id, status, 
+status_name, product_qty, package_qty, weight_kg, amount, cust_id, price, part_id
+	from lnd_layer.fct_sales_out_d
+	group by merch_id, ol_id, product_id, invoice_id, invoice_no, order_no, date_id, status, 
+status_name, product_qty, package_qty, weight_kg, amount, cust_id, price, part_id)a;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">row2</stringProp>
+          <stringProp name="resultVariable">row2</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="row by row check layer_3nf.ce_regions and lnd_layer" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">row2_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check duplicates  in tables layer_3nf.ce_sales_out and lnd_layer.fct_sales_out_d" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select merchandiser_surr_id, outlet_surr_id, product_surr_id, invoice_id, invoice_number, order_number, date_id, status, 
+status_name, product_quantity, package_quantity, weight_kg, amount, price, count(*)
+from layer_3nf.ce_sales_out
+group by merchandiser_surr_id, outlet_surr_id, product_surr_id, invoice_id, invoice_number, order_number, date_id, status, 
+status_name, product_quantity, package_quantity, weight_kg, amount, price
+having count(*) &gt;1 ;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">dupl4</stringProp>
+          <stringProp name="resultVariable">dupl4</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="duplicates " enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">dupl4_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
     </hashTree>
   </hashTree>

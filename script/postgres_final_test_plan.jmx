@@ -2062,7 +2062,7 @@ from layer_3nf.ce_warehouses cw
 		   sum(length(region_manager_id)) as b_region_manager_id,
 		   sum(length(region_manager_name)) as b_region_manager_name
 	from lnd_layer.dim_merchandisers
-	) b</stringProp>
+	) b;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="variableNames">check_sum_differ_from_datalenght_merchandisers</stringProp>
@@ -4704,35 +4704,27 @@ LIMIT 1;</stringProp>
 (
 SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;w_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;date_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;product_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;stock&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;stock_in_packages&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;part_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;is_processed&apos; AS column_name, &apos;boolean&apos; AS data_type,
 NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;false&apos; AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
 NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_evening&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
 NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
@@ -4952,35 +4944,27 @@ LIMIT 1;</stringProp>
 (
 SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;w_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;date_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;product_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;stock&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;stock_in_packages&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;part_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;is_processed&apos; AS column_name, &apos;boolean&apos; AS data_type,
 NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;false&apos; AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
 NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
-
 UNION ALL
 SELECT &apos;fct_archivedstocks_morning&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
 NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
@@ -6017,7 +6001,7 @@ from (
 		select &apos;N/A&apos;, &apos;N/A&apos;
 		) a)source, 		
 (select sum(length (country_src_id)) as target_country_id, sum(length (country_name)) as target_country_name
-from layer_3nf.ce_countries) target</stringProp>
+from layer_3nf.ce_countries) target ;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="queryTimeout"></stringProp>
@@ -6222,7 +6206,7 @@ from layer_3nf.ce_sales_out;</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row of layer_3nf.ce_sales_out and lnd_layer.fct_sales_out_d" enabled="true">
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row of layer_3nf.ce_sales_out and lnd_layer.fct_sales_out_d" enabled="false">
           <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
           <stringProp name="query">select merch_id, ol_id, product_id, invoice_id, invoice_no, ((order_no):: bigint) as order_no, to_date (date_id, &apos;YYYYMMDD&apos;) as date_id, ((status):: integer) as status, 
@@ -7172,11 +7156,10 @@ limit 2;</stringProp>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of length of rows in table layer_3nf.ce_cities" enabled="true">
           <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
-          <stringProp name="query">
-		         SELECT (a.city_name -b.city_name) 
-			        	+(a.city_id -b.city_id)
-			        	+(a.district_id -b.district_id)
-				FROM 
+          <stringProp name="query">SELECT (a.city_name -b.city_name) 
+		+(a.city_id -b.city_id)
+		+(a.district_id -b.district_id)
+FROM 
 			        (
 				        SELECT sum(length(city_name)) AS city_name ,
 						        sum(length(city_id)) AS city_id
@@ -7470,7 +7453,7 @@ HAVING count(*)&gt;1;</stringProp>
 (count(*) - count(src_table))+ 
 (count(*) - count(insert_dt))+  
 (count(*) - count(update_dt ))
-FROM layer_3nf.ce_cities cc </stringProp>
+FROM layer_3nf.ce_cities cc ;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="variableNames">df</stringProp>
@@ -7503,8 +7486,7 @@ FROM layer_3nf.ce_cities cc </stringProp>
  (count(*) - count(src_table))+ 
  (count(*) - count(insert_dt))+ 
  (count(*) - count(update_dt))
-FROM layer_3nf.ce_districts cd
- ;</stringProp>
+FROM layer_3nf.ce_districts cd;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="variableNames">df</stringProp>
@@ -7890,63 +7872,48 @@ LIMIT 1;</stringProp>
         (
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;ol_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;merch_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;date_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;product_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;present_qty&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
-        UNION ALL 
+       UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;price&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;present_amount&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;weight&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;begin_min_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;end_min_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;mins_spent&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;part_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;is_processed&apos; AS column_name, &apos;boolean&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;false&apos; AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT_DATE&apos; AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_distribution&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT_DATE&apos; AS column_default
-
        ), utc AS
         (
         SELECT table_name, 
@@ -7994,79 +7961,60 @@ LIMIT 1;</stringProp>
         (
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;olcard_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;date_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;merch_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;ol_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;order_no&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;product_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;product_qty&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;weight_kg&apos; AS column_name, &apos;character varying&apos; AS data_type, 
-        256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-        
+        256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default     
            UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;price&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;vat&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;amount&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;w_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;begin_min_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;end_min_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;mins_spent&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;part_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;YES&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;is_processed&apos; AS column_name, &apos;boolean&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;false&apos; AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT_DATE&apos; AS column_default
-
         UNION ALL 
         SELECT &apos;fct_outlet_order_d&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT_DATE&apos; AS column_default
-
        ), utc AS
         (
         SELECT table_name, 
@@ -8170,7 +8118,7 @@ FROM
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check lnd_layer.fct_outlet_distribution and ext_layer.factoutletdistribution" enabled="true">
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check lnd_layer.fct_outlet_distribution and ext_layer.factoutletdistribution" enabled="false">
           <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="query">SELECT ol_id,
        merch_id,
@@ -8185,9 +8133,7 @@ FROM
        minutesspent,
        part_id
 FROM ext_layer.factoutletdistribution
-
 EXCEPT  
-
 SELECT ol_id,
        merch_id,
        date_id,
@@ -8215,9 +8161,7 @@ SELECT ol_id,
        mins_spent,
        part_id
 FROM lnd_layer.fct_outlet_distribution
-
 EXCEPT
-
 SELECT ol_id,
        merch_id,
        date_id,
@@ -8254,7 +8198,7 @@ FROM ext_layer.factoutletdistribution;</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check lnd_layer.fct_outlet_order_d and ext_layer.factoutletorderd" enabled="true">
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check lnd_layer.fct_outlet_order_d and ext_layer.factoutletorderd" enabled="false">
           <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="query">SELECT olcard_id,
        date_id,
@@ -8354,7 +8298,7 @@ FROM ext_layer.factoutletorderd;</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of length of rows in tables lnd_layer.fct_outlet_distribution and ext_layer.factoutletdistribution" enabled="true">
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of length of rows in tables lnd_layer.fct_outlet_distribution and ext_layer.factoutletdistribution" enabled="false">
           <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="query">SELECT
        (source.ol_id-target.ol_id)+
@@ -8420,7 +8364,7 @@ FROM
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of length of rows in tables lnd_layer.fct_outlet_order_d and ext_layer.factoutletorderd" enabled="true">
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of length of rows in tables lnd_layer.fct_outlet_order_d and ext_layer.factoutletorderd" enabled="false">
           <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="query">SELECT
        (source.olcard_id-target.olcard_id)+
@@ -8577,47 +8521,36 @@ LIMIT 1;</stringProp>
         (
         SELECT &apos;ce_products&apos; AS table_name, &apos;product_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;nextval(&apos;&apos;layer_3nf.ce_products_seq&apos;&apos;::regclass)&apos; AS column_default
-
         UNION ALL 
         SELECT &apos;ce_products&apos; AS table_name, &apos;product_src_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;ce_products&apos; AS table_name, &apos;product_name&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;ce_products&apos; AS table_name, &apos;product_name_en&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;ce_products&apos; AS table_name, &apos;product_code&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;ce_products&apos; AS table_name, &apos;product_type_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;ce_products&apos; AS table_name, &apos;product_group_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;ce_products&apos; AS table_name, &apos;product_category_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type, 
-        NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-        
-        UNION ALL 
+        NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default      
+  	    UNION ALL 
         SELECT &apos;ce_products&apos; AS table_name, &apos;src_table&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;ce_products&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT_DATE&apos; AS column_default
-
         UNION ALL 
         SELECT &apos;ce_products&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT_DATE&apos; AS column_default
-
        ), utc AS
         (
         SELECT table_name, 
@@ -8665,31 +8598,24 @@ LIMIT 1;</stringProp>
         (
         SELECT &apos;ce_outlets&apos; AS table_name, &apos;outlet_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;nextval(&apos;&apos;layer_3nf.ce_outlets_seq&apos;&apos;::regclass)&apos; AS column_default
-
         UNION ALL 
         SELECT &apos;ce_outlets&apos; AS table_name, &apos;outlet_src_id&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;ce_outlets&apos; AS table_name, &apos;outlet_name&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;ce_outlets&apos; AS table_name, &apos;outlet_name_en&apos; AS column_name, &apos;character varying&apos; AS data_type, 
-        256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-        
+        256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default       
         UNION ALL 
         SELECT &apos;ce_outlets&apos; AS table_name, &apos;src_table&apos; AS column_name, &apos;character varying&apos; AS data_type, 
         256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-
         UNION ALL 
         SELECT &apos;ce_outlets&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT_DATE&apos; AS column_default
-
         UNION ALL 
         SELECT &apos;ce_outlets&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type, 
         NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT_DATE&apos; AS column_default
-
        ), utc AS
         (
         SELECT table_name, 
@@ -8916,7 +8842,6 @@ FROM
             FROM lnd_layer.dim_outlets
             UNION ALL 
             SELECT &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;) a)  source,
-
       (SELECT sum(length(outlet_src_id)) as outlet_src_id,
               sum(length(outlet_name)) as outlet_name,
               sum(length(outlet_name_en)) as outlet_name_en
@@ -9118,9 +9043,7 @@ EXCEPT
 FROM lnd_layer.dim_products 
 UNION
 SELECT &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;))
-
 UNION ALL
-
 ((SELECT DISTINCT product_id ,
 				product_name ,
 				product_name_en,
@@ -9128,7 +9051,6 @@ UNION ALL
 FROM lnd_layer.dim_products 
 UNION
 SELECT &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;, &apos;N/A&apos;) 
-
 EXCEPT 
 SELECT          product_src_id ,
 				product_name ,

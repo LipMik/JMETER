@@ -5440,7 +5440,7 @@ FROM LND_LAYER.fct_outlet_card_h;</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
             <stringProp name="Assertion.scope">variable</stringProp>
-            <stringProp name="Scope.variable">f_1</stringProp>
+            <stringProp name="Scope.variable">f_#</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>

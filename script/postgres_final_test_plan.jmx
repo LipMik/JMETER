@@ -4801,25 +4801,25 @@ FROM golden_metadata gm;</stringProp>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check  ext_layer.factarchivedstocksevening and nd_layer.fct_archivedstocks_evening" enabled="true">
           <stringProp name="dataSource">postgres_conn</stringProp>
-          <stringProp name="query">SELECT  w_id, date_id,
-               product_id, stock,
-               stockinpackages, part_id
-FROM ext_layer.factarchivedstocksevening
+          <stringProp name="query">SELECT TRIM (w_id) as w_id,
+		TRIM (TO_CHAR (date_id, &apos;99999999&apos;)) as date_id,
+		TRIM (TO_CHAR (product_id, &apos;999999999999&apos;)) as product_id,
+		TRIM (TO_CHAR (part_id, &apos;999999&apos;)) as part_id
+FROM EXT_LAYER.factarchivedstocksevening 				
 EXCEPT 
-SELECT w_id,date_id,
-              product_id, stock,
-              stock_in_packages,part_id
-FROM lnd_layer.fct_archivedstocks_evening
+SELECT w_id, date_id,
+		product_id,  part_id
+FROM lnd_layer.fct_archivedstocks_evening 	
 UNION ALL
 SELECT w_id, date_id,
-              product_id, stock,
-              stock_in_packages, part_id
+       product_id, part_id
 FROM lnd_layer.fct_archivedstocks_evening
 EXCEPT
-SELECT  w_id, date_id, 
-               product_id, stock,
-               stockinpackages, part_id
-FROM ext_layer.factarchivedstocksevening;</stringProp>
+SELECT TRIM (w_id) as w_id,
+		TRIM (TO_CHAR (date_id, &apos;99999999&apos;)) as date_id,
+		TRIM (TO_CHAR (product_id, &apos;999999999999&apos;)) as product_id,
+		TRIM (TO_CHAR (part_id, &apos;999999&apos;)) as part_id
+FROM EXT_LAYER.factarchivedstocksevening;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes">a</stringProp>
           <stringProp name="queryTimeout"></stringProp>
@@ -5049,25 +5049,25 @@ FROM golden_metadata gm;</stringProp>
         </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check ext_layer.factarchivedstocksmorning and lnd_layer.fct_archivedstocks_morning" enabled="true">
           <stringProp name="dataSource">postgres_conn</stringProp>
-          <stringProp name="query">SELECT  w_id, date_id,
-               product_id, stock,
-               stockinpackages, part_id
-FROM ext_layer.factarchivedstocksmorning				
+          <stringProp name="query">SELECT TRIM (w_id) as w_id,
+		TRIM (TO_CHAR (date_id, &apos;99999999&apos;)) as date_id,
+		TRIM (TO_CHAR (product_id, &apos;999999999999&apos;)) as product_id,
+		TRIM (TO_CHAR (part_id, &apos;999999&apos;)) as part_id
+FROM EXT_LAYER.factarchivedstocksmorning				
 EXCEPT 
 SELECT w_id, date_id,
-              product_id, stock,
-              stock_in_packages, part_id
-FROM lnd_layer.fct_archivedstocks_morning
+		product_id,  part_id
+FROM lnd_layer.fct_archivedstocks_morning 	
 UNION ALL
 SELECT w_id, date_id,
-              product_id, stock,
-              stock_in_packages, part_id
+       product_id, part_id
 FROM lnd_layer.fct_archivedstocks_morning
 EXCEPT
-SELECT  w_id, date_id,
-               product_id, stock,
-               stockinpackages, part_id
-FROM ext_layer.factarchivedstocksmorning;</stringProp>
+SELECT TRIM (w_id) as w_id,
+		TRIM (TO_CHAR (date_id, &apos;99999999&apos;)) as date_id,
+		TRIM (TO_CHAR (product_id, &apos;999999999999&apos;)) as product_id,
+		TRIM (TO_CHAR (part_id, &apos;999999&apos;)) as part_id
+FROM EXT_LAYER.factarchivedstocksmorning;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes">b</stringProp>
           <stringProp name="queryTimeout"></stringProp>
@@ -5199,26 +5199,40 @@ LIMIT 1;</stringProp>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check   lnd_layer.fct_outlet_card_h and ext_layer.factoutletcardh" enabled="true">
           <stringProp name="dataSource">postgres_conn</stringProp>
           <stringProp name="query">SELECT olcard_id, date_id, merch_id, 
-              ol_id, success, olcard_date,
-              begin_min_id, end_min_id, mins_spent,
-              begin_time, end_time, part_id
+       ol_id, success, olcard_date,
+       begin_min_id, end_min_id,
+       begin_time, end_time, part_id
 FROM LND_LAYER.fct_outlet_card_h
 EXCEPT 
-SELECT olcard_id, date_id, merch_id, 
-              ol_id, success, olcarddate,
-              beginminuteid, endminuteid, minutesspent,
-              begintime, endtime, part_id
+SELECT  TRIM (TO_CHAR (olcard_id, &apos;999999999999&apos;)) as olcard_id,
+		TRIM (TO_CHAR (date_id, &apos;99999999&apos;)) as date_id,
+		TRIM (TO_CHAR (merch_id, &apos;9999999999&apos;)) as merch_id,
+		TRIM (TO_CHAR (ol_id, &apos;99999999999999&apos;)) as ol_id,
+		TRIM (TO_CHAR (success, &apos;9&apos;)) as success, 
+		TRIM (olcarddate) as olcarddate,
+		TRIM (TO_CHAR (beginminuteid, &apos;9999&apos;)) as beginminuteid,
+		TRIM (TO_CHAR (endminuteid, &apos;9999&apos;)) as endminuteid,
+		TRIM (begintime) as begintime,
+		TRIM (endtime) as endtime, 
+		TRIM (TO_CHAR (part_id, &apos;999999&apos;)) as part_id
 FROM EXT_LAYER.factoutletcardh
 UNION ALL
-SELECT olcard_id, date_id, merch_id,
-              ol_id, success, olcarddate,
-               beginminuteid, endminuteid, minutesspent,
-               begintime, endtime, part_id
+SELECT  TRIM (TO_CHAR (olcard_id, &apos;999999999999&apos;)) as olcard_id,
+		TRIM (TO_CHAR (date_id, &apos;99999999&apos;)) as date_id,
+		TRIM (TO_CHAR (merch_id, &apos;9999999999&apos;)) as merch_id,
+		TRIM (TO_CHAR (ol_id, &apos;99999999999999&apos;)) as ol_id,
+		TRIM (TO_CHAR (success, &apos;9&apos;)) as success, 
+		TRIM (olcarddate) as olcarddate,
+		TRIM (TO_CHAR (beginminuteid, &apos;9999&apos;)) as beginminuteid,
+		TRIM (TO_CHAR (endminuteid, &apos;9999&apos;)) as endminuteid,
+		TRIM (begintime) as begintime,
+		TRIM (endtime) as endtime, 
+		TRIM (TO_CHAR (part_id, &apos;999999&apos;)) as part_id
 FROM EXT_LAYER.factoutletcardh
 EXCEPT 
 SELECT olcard_id, date_id, merch_id, 
               ol_id, success, olcard_date,
-              begin_min_id, end_min_id, mins_spent,
+              begin_min_id, end_min_id,
               begin_time, end_time, part_id
 FROM LND_LAYER.fct_outlet_card_h;</stringProp>
           <stringProp name="queryArguments"></stringProp>

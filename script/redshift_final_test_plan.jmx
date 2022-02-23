@@ -5031,6 +5031,25 @@ having count(*) &gt;1 ;</stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
+        <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="Redshift" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="poolMax">0</stringProp>
+          <stringProp name="timeout">10000</stringProp>
+          <stringProp name="trimInterval">60000</stringProp>
+          <boolProp name="autocommit">true</boolProp>
+          <stringProp name="transactionIsolation">DEFAULT</stringProp>
+          <boolProp name="preinit">false</boolProp>
+          <stringProp name="initQuery"></stringProp>
+          <boolProp name="keepAlive">true</boolProp>
+          <stringProp name="connectionAge">5000</stringProp>
+          <stringProp name="checkQuery"></stringProp>
+          <stringProp name="dbUrl">jdbc:redshift://dalab-project-stage.cettexdsxw3v.eu-central-1.redshift.amazonaws.com:5439/boba_db</stringProp>
+          <stringProp name="driver">com.amazon.redshift.jdbc42.Driver</stringProp>
+          <stringProp name="username">boba_dqe_user</stringProp>
+          <stringProp name="password">EnaSBg)8U&amp;[mx-b</stringProp>
+          <stringProp name="connectionProperties"></stringProp>
+        </JDBCDataSource>
+        <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Row by row check lnd_layer.fct_outlet_order_h and ext_layer.factoutletorderh" enabled="true">
           <stringProp name="dataSource">redshift_conn</stringProp>
           <stringProp name="query">SELECT date_id, merch_id, ol_id,
@@ -5889,25 +5908,862 @@ WHERE table_name=&apos;fct_sales_out_d&apos;;</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="Redshift" enabled="true">
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="lnd_laer.dim_outlets all column in table existence" enabled="true">
           <stringProp name="dataSource">redshift_conn</stringProp>
-          <stringProp name="poolMax">0</stringProp>
-          <stringProp name="timeout">10000</stringProp>
-          <stringProp name="trimInterval">60000</stringProp>
-          <boolProp name="autocommit">true</boolProp>
-          <stringProp name="transactionIsolation">DEFAULT</stringProp>
-          <boolProp name="preinit">false</boolProp>
-          <stringProp name="initQuery"></stringProp>
-          <boolProp name="keepAlive">true</boolProp>
-          <stringProp name="connectionAge">5000</stringProp>
-          <stringProp name="checkQuery"></stringProp>
-          <stringProp name="dbUrl">jdbc:redshift://dalab-project-stage.cettexdsxw3v.eu-central-1.redshift.amazonaws.com:5439/boba_db</stringProp>
-          <stringProp name="driver">com.amazon.redshift.jdbc42.Driver</stringProp>
-          <stringProp name="username">boba_dqe_user</stringProp>
-          <stringProp name="password">EnaSBg)8U&amp;[mx-b</stringProp>
-          <stringProp name="connectionProperties"></stringProp>
-        </JDBCDataSource>
-        <hashTree/>
+          <stringProp name="query">SELECT ol_id, ol_name, ol_name_en, ol_subtype_id, ol_subtype_name, ol_subtype_name_en,
+ol_type_id, ol_type_name, ol_type_name_en,ol_group_id,ol_group_name,ol_group_name_en,
+area_id,area_name,area_name_en,city_id,city_name,city_name_en,district_id,district_name,
+district_name_en,region_id,region_name,region_name_en,cust_id,cust_name,cust_name_en,distr_id,
+distr_name,distr_name_en,network_id,network_name,network_name_en,country_id,country_name,
+status, status_name
+FROM LND_LAYER.dim_outlets 
+LIMIT 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable">column</stringProp>
+          <stringProp name="variableNames">column</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">column_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="lnd_laer.dim_outlets row by row check" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT ol_id, ol_name, ol_name_en, ol_subtype_id,
+             ol_subtype_name, ol_subtype_name_en,
+             ol_type_id, ol_type_name, ol_type_name_en,
+             ol_group_id,ol_group_name,ol_group_name_en,
+             area_id,area_name,area_name_en,city_id,
+             city_name,city_name_en,district_id,district_name,  
+             district_name_en,region_id,region_name,
+             region_name_en,cust_id,cust_name,cust_name_en,distr_id,
+             distr_name,distr_name_en,network_id,network_name,
+             network_name_en,country_id,country_name,
+             status, status_name
+FROM LND_LAYER.dim_outlets 
+EXCEPT
+SELECT ol_id, ol_name, ol_name_en, olsubtype_id,
+             olsubtype_name, olsubtype_name_en, 
+             oltype_id, oltype_name, oltype_name_en,
+             olgroup_id,olgroup_name,olgroup_name_en,
+             area_id,area_name,area_name_en,city_id,
+             city_name,city_name_en, district_id,district_name,
+             district_name_en,region_id,region_name,
+            region_name_en,cust_id,cust_name,  cust_name_en,        
+            distr_id,distr_name,distr_name_en,
+            network_id, network_name,network_name_en,
+            country_id,country_name, status, statusname
+FROM ext_LAYER.dimoutlets
+union all
+SELECT ol_id, ol_name, ol_name_en, olsubtype_id,
+             olsubtype_name, olsubtype_name_en, 
+             oltype_id, oltype_name, oltype_name_en,
+             olgroup_id,olgroup_name,olgroup_name_en,
+             area_id,area_name,area_name_en,city_id,
+             city_name,city_name_en, district_id,district_name,
+             district_name_en,region_id,region_name,
+            region_name_en,cust_id,cust_name,  cust_name_en,        
+            distr_id,distr_name,distr_name_en,
+            network_id, network_name,network_name_en,
+            country_id,country_name, status, statusname
+FROM ext_LAYER.dimoutlets
+except
+SELECT ol_id, ol_name, ol_name_en, ol_subtype_id,
+             ol_subtype_name, ol_subtype_name_en,
+             ol_type_id, ol_type_name, ol_type_name_en,
+             ol_group_id,ol_group_name,ol_group_name_en,
+             area_id,area_name,area_name_en,city_id,
+             city_name,city_name_en,district_id,district_name,  
+             district_name_en,region_id,region_name,
+             region_name_en,cust_id,cust_name,cust_name_en,distr_id,
+             distr_name,distr_name_en,network_id,network_name,
+             network_name_en,country_id,country_name,
+             status, status_name
+FROM LND_LAYER.dim_outlets;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">differ</stringProp>
+          <stringProp name="resultVariable">differ</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">differ_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="lnd_laer.dim_outlets Count rows from tagret table equal count rows from source table" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select lnd_count.n-ext_count.n AS dif
+from 
+(SELECT count(*) as n FROM LND_LAYER.dim_outlets ) AS lnd_count,
+(SELECT count(*) as n FROM EXT_LAYER.dimoutlets d) AS ext_count;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">countdif</stringProp>
+          <stringProp name="resultVariable">countdif</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">countdif_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="lnd_laer.dim_outlets sum length" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select (a.ol_id-b.ol_id)
++(a.ol_name - b.ol_name)
++(a.ol_name_en-b.ol_name_en)
++ (a.ol_subtype_id-b.ol_subtype_id)+
+(a.ol_subtype_name-b.ol_subtype_name)
++ (a.olsubtype_name_en-b.olsubtype_name_en)
++ (a.oltype_id -b.oltype_id)
++ (a.oltype_name-b.oltype_name)
++ (a.olgroup_id-b.olgroup_id)
++ (a.olgroup_name-b.olgroup_name)
++(a.olgroup_name_en-b.olgroup_name_en)
++(a.area_id-b.area_id)+
+(a.area_name-b.area_name)
++(a.area_name_en -b.area_name_en)
++(a.city_id-b.city_id)
++(a.city_name-b.city_name)
++(a.city_name_en-b.city_name_en)
++(a.district_id-b.district_id)+(a.district_name-b.district_name)
++(a.district_name_en-b.district_name_en)
++(a.region_id-b.region_id)
++(a.region_name-b.region_name)+(a.region_name_en-b.region_name_en)
++(a.cust_id-b.cust_id)+(a.cust_name-b.cust_name)+(a.cust_name_en-b.cust_name_en)
++(a.distr_id-b.distr_id)+(a.distr_name-b.distr_name)+(a.distr_name_en-b.distr_name_en)
++(a.network_id-b.network_id)+(a.network_name-b.network_name)+(a.network_name_en-b.network_name_en)
++(a.country_id-b.country_id)+(a.country_name-b.country_name)
++(a.status-b.status)+(a.statusname-b.statusname)
+from
+(select sum(length (trim(ol_id))) ol_id
+,sum(length (trim(ol_name))) ol_name
+,sum (length (trim(ol_name_en))) ol_name_en
+,sum (length (trim(olsubtype_id))) ol_subtype_id
+,sum (length (trim(olsubtype_name))) ol_subtype_name
+,sum (length (trim(olsubtype_name_en))) olsubtype_name_en
+,sum (length (trim(oltype_id))) oltype_id
+,sum (length (trim( oltype_name))) oltype_name
+,sum (length (trim( oltype_name_en))) oltype_name_en
+,sum (length (trim(olgroup_id))) olgroup_id
+,sum (length (trim(olgroup_name))) olgroup_name
+,sum (length (trim( olgroup_name_en))) olgroup_name_en
+,sum (length (trim( area_id))) area_id
+,sum (length (trim( area_name))) area_name
+,sum (length (trim( area_name_en))) area_name_en
+, sum (length (trim(city_id))) city_id
+, sum (length (trim(city_name))) city_name
+, sum (length (trim( city_name_en)))city_name_en
+, sum (length (trim( district_id))) district_id
+, sum (length (trim(district_name))) district_name
+, sum (length (trim(district_name_en))) district_name_en
+, sum (length (trim(region_id))) region_id
+, sum (length (trim(region_name))) region_name
+, sum (length (trim(region_name_en))) region_name_en
+, sum (length (trim( cust_id))) cust_id
+, sum (length (trim(cust_name))) cust_name
+, sum (length (trim( cust_name_en))) cust_name_en
+, sum (length (trim( distr_id))) distr_id
+, sum (length (trim( distr_name))) distr_name
+, sum (length (trim(distr_name_en))) distr_name_en
+, sum (length (trim( network_id))) network_id
+, sum (length (trim( network_name))) network_name
+, sum (length (trim(network_name_en))) network_name_en
+, sum (length (trim(country_id))) country_id
+, sum (length (trim( country_name))) country_name
+, sum (length (trim(status))) status
+, sum (length (trim(statusname))) statusname
+from ext_layer.dimoutlets)a,
+(
+select sum (length (ol_id)) ol_id
+, sum (length (ol_name)) ol_name
+,sum (length (ol_name_en)) ol_name_en
+,sum (length (ol_subtype_id)) ol_subtype_id
+,sum (length (ol_subtype_name)) ol_subtype_name
+,sum (length (ol_subtype_name_en)) olsubtype_name_en
+, sum (length ( ol_type_id)) oltype_id
+, sum (length ( ol_type_name)) oltype_name
+, sum (length ( ol_type_name_en)) oltype_name_en
+, sum (length ( ol_group_id)) olgroup_id
+, sum (length ( ol_group_name)) olgroup_name
+, sum (length ( ol_group_name_en)) olgroup_name_en
+, sum (length ( area_id)) area_id
+, sum (length ( area_name)) area_name
+, sum (length ( area_name_en)) area_name_en
+, sum (length ( city_id)) city_id
+, sum (length ( city_name)) city_name
+, sum (length ( city_name_en))city_name_en
+, sum (length ( district_id)) district_id
+, sum (length ( district_name)) district_name
+, sum (length ( district_name_en)) district_name_en
+, sum (length ( region_id)) region_id
+, sum (length ( region_name)) region_name
+, sum (length ( region_name_en)) region_name_en
+, sum (length ( cust_id)) cust_id
+, sum (length (cust_name)) cust_name
+, sum (length ( cust_name_en)) cust_name_en
+, sum (length ( distr_id)) distr_id
+, sum (length ( distr_name)) distr_name
+, sum (length (distr_name_en)) distr_name_en
+, sum (length ( network_id)) network_id
+, sum (length ( network_name)) network_name
+, sum (length (network_name_en)) network_name_en
+, sum (length ( country_id)) country_id
+, sum (length ( country_name)) country_name
+, sum (length ( status)) status
+, sum (length (status_name)) statusname
+from lnd_layer.dim_outlets)b;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">lenghtdif</stringProp>
+          <stringProp name="variableNames">lenghtdif</stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">lenghtdif_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="lnd_laer.dim_outlets metadata" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT table_name,
+column_name,
+udt_name,
+character_maximum_length,
+is_nullable,
+column_default
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name=&apos;dim_outlets&apos;
+EXCEPT
+SELECT *
+FROM
+(
+SELECT &apos;dim_outlets&apos; AS table_name, &apos;ol_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_subtype_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_subtype_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name, &apos;ol_subtype_name_en&apos; AS column_name, &apos;varchar&apos; AS udt_name, 256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos;AS table_name,&apos;ol_type_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos;AS table_name,&apos;ol_type_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_type_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_group_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_group_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_group_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;area_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;area_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;area_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;city_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;city_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;city_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;district_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;district_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;district_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;region_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;region_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;region_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;region_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;cust_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;cust_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;cust_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;distr_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;distr_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;distr_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;network_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;network_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;network_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;country_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;country_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;status&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;status_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;insert_dt&apos; AS column_name,&apos;date&apos; AS udt_name,NULL AS character_maximum_length,
+&apos;NO&apos; AS is_nullable,&apos;(&apos;&apos;now&apos;&apos;::text)::date&apos;  AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;update_dt&apos; AS column_name,&apos;date&apos; AS udt_name,NULL AS character_maximum_length,
+&apos;NO&apos; AS is_nullable,&apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+) b
+UNION ALL
+SELECT *
+FROM
+(
+SELECT &apos;dim_outlets&apos; AS table_name, &apos;ol_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_subtype_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_subtype_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name, &apos;ol_subtype_name_en&apos; AS column_name, &apos;varchar&apos; AS udt_name, 256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos;AS table_name,&apos;ol_type_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos;AS table_name,&apos;ol_type_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_type_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_group_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_group_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;ol_group_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;area_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;area_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;area_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;city_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;city_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;city_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;district_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;district_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;district_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;region_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;region_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;region_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;region_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;cust_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;cust_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;cust_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;distr_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;distr_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;distr_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;network_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;network_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;network_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;country_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;country_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;status&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION all
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;status_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;insert_dt&apos; AS column_name,&apos;date&apos; AS udt_name,NULL AS character_maximum_length,
+&apos;NO&apos; AS is_nullable,&apos;(&apos;&apos;now&apos;&apos;::text)::date&apos;  AS column_default
+UNION ALL
+SELECT &apos;dim_outlets&apos; AS table_name,&apos;update_dt&apos; AS column_name,&apos;date&apos; AS udt_name,NULL AS character_maximum_length,
+&apos;NO&apos; AS is_nullable,&apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+) a
+EXCEPT
+SELECT table_name,
+column_name,
+udt_name,
+character_maximum_length,
+is_nullable,
+column_default
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name=&apos;dim_outlets&apos;;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">metadif</stringProp>
+          <stringProp name="resultVariable">metadif</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">metadif_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="lnd_laer.dim_product all column in table existence" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select product_id,product_name,product_name_en,
+product_code,product_type_id,product_type_name,
+product_type_name_en,product_group_id,product_group_name,
+product_group_name_en,product_category_id,
+product_category_name,product_category_name_en
+FROM LND_LAYER.dim_products 
+LIMIT 1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">prod</stringProp>
+          <stringProp name="resultVariable">prod</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="49">1</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">prod_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="lnd_laer.dim_product  row by row check" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT product_id,product_name,product_name_en,
+product_code,product_type_id,product_type_name,
+product_type_name_en,product_group_id,product_group_name,
+product_group_name_en,product_category_id,
+product_category_name,product_category_name_en
+FROM LND_LAYER.dim_products 
+EXCEPT
+select product_id,productname,product_name_en,
+productcode,producttype_id,prodtypename,
+producttype_name_en,prodgroup_id,prodgroupname,
+prodgroup_name_en,prodcategory_id,
+prodcategoryname,prodcategoryname_en
+FROM ext_layer.dimproduct
+union all
+select product_id,productname,product_name_en,
+productcode,producttype_id,prodtypename,
+producttype_name_en,prodgroup_id,prodgroupname,
+prodgroup_name_en,prodcategory_id,
+prodcategoryname,prodcategoryname_en
+FROM ext_layer.dimproduct
+except
+select product_id,product_name,product_name_en,
+product_code,product_type_id,product_type_name,
+product_type_name_en,product_group_id,product_group_name,
+product_group_name_en,product_category_id,
+product_category_name,product_category_name_en
+FROM LND_LAYER.dim_products;
+</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="lnd_laer.dim_product  count rows from tagret table equal count rows from source table" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT lnd_count.n-ext_count.n AS dif
+from   
+(SELECT count(*) as n FROM LND_LAYER.dim_products ) AS lnd_count,
+(SELECT count(*) as n FROM EXT_LAYER.dimproduct d) AS ext_count;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">pdif</stringProp>
+          <stringProp name="resultVariable">pdif</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">pdif_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="lnd_laer.product metadata" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT table_name,
+column_name,
+udt_name,
+character_maximum_length,
+is_nullable,
+column_default
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name=&apos;dim_products&apos;
+EXCEPT
+SELECT *
+FROM
+(
+SELECT &apos;dim_products&apos; AS table_name, &apos;product_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;product_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;product_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;product_code&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;product_type_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name, &apos;product_type_name&apos; AS column_name, &apos;varchar&apos; AS udt_name, 256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT&apos;dim_products&apos;AS table_name,&apos;product_type_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos;AS table_name,&apos;product_group_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos;AS table_name,&apos;product_group_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;product_category_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;insert_dt&apos; AS column_name,&apos;date&apos; AS udt_name,NULL AS character_maximum_length,
+&apos;NO&apos; AS is_nullable,&apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+UNION ALL
+select &apos;dim_products&apos; AS table_name,&apos;update_dt&apos; AS column_name,&apos;date&apos; AS udt_name,NULL AS character_maximum_length,
+&apos;NO&apos; AS is_nullable,&apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+) a
+UNION ALL
+SELECT *
+FROM
+(
+SELECT &apos;dim_products&apos; AS table_name, &apos;product_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;product_name&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;product_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;product_code&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;product_type_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name, &apos;product_type_name&apos; AS column_name, &apos;varchar&apos; AS udt_name, 256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT&apos;dim_products&apos;AS table_name,&apos;product_type_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos;AS table_name,&apos;product_group_id&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos;AS table_name,&apos;product_group_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;product_category_name_en&apos; AS column_name,&apos;varchar&apos; AS udt_name,256 AS character_maximum_length,
+&apos;YES&apos; AS is_nullable,NULL AS column_default
+UNION ALL
+SELECT &apos;dim_products&apos; AS table_name,&apos;insert_dt&apos; AS column_name,&apos;date&apos; AS udt_name,NULL AS character_maximum_length,
+&apos;NO&apos; AS is_nullable,&apos;(&apos;&apos;now&apos;&apos;::text)::date&apos;  AS column_default
+UNION ALL
+select &apos;dim_products&apos; AS table_name,&apos;update_dt&apos; AS column_name,&apos;date&apos; AS udt_name,NULL AS character_maximum_length,
+&apos;NO&apos; AS is_nullable,&apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+) a
+EXCEPT
+SELECT table_name,
+column_name,
+udt_name,
+character_maximum_length,
+is_nullable,
+column_default
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name=&apos;dim_products&apos;;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">prodmetadif</stringProp>
+          <stringProp name="resultVariable">prodmetadif</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">prodmetadif_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="lnd_laer.dim_prod sum lenght" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select (a.product_id-b.product_id)+(a.productname-b.product_name)+(a.product_name_en-b.product_name_en)
++(a.productcode-b.product_code)+(a.producttype_id-b.product_type_id)+(a.prodtypename-b.product_type_name)
++(a.producttype_name_en-b.product_type_name_en)+(a.prodgroup_id-b.product_group_id)
++(a.prodgroupname-b.product_group_name)+(a.prodgroup_name_en-b.product_group_name_en)
++(a.prodcategory_id-b.product_category_id)+(a.prodcategoryname-b.product_category_name)
++(a.prodcategoryname_en-b.product_category_name_en)
+from
+(select sum (length (trim(product_id))) product_id
+, sum (length (trim(productname))) productname
+,sum (length (trim(product_name_en))) product_name_en 
+,sum (length (trim(productcode))) productcode
+,sum (length (trim(producttype_id))) producttype_id
+,sum (length (trim(prodtypename))) prodtypename
+, sum (length (trim(producttype_name_en))) producttype_name_en
+, sum (length (trim(prodgroup_id))) prodgroup_id
+,sum (length (trim( prodgroupname))) prodgroupname
+, sum (length (trim(prodgroup_name_en))) prodgroup_name_en
+,sum (length (trim(prodcategory_id))) prodcategory_id
+, sum (length (trim( prodcategoryname))) prodcategoryname
+, sum (length (trim( prodcategoryname_en))) prodcategoryname_en
+from ext_layer.dimproduct)a,
+(
+select sum (length (product_id)) product_id
+, sum (length (product_name)) product_name
+,sum (length (product_name_en)) product_name_en 
+,sum (length (product_code)) product_code 
+,sum (length (product_type_id)) product_type_id
+,sum (length (product_type_name)) product_type_name
+, sum (length ( product_type_name_en)) product_type_name_en
+, sum (length ( product_group_id)) product_group_id
+, sum (length (product_group_name)) product_group_name
+, sum (length (product_group_name_en)) product_group_name_en
+, sum (length (product_category_id)) product_category_id
+, sum (length (product_category_name)) product_category_name
+, sum (length ( product_category_name_en)) product_category_name_en
+from lnd_layer.dim_products)b;
+
+</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">prodlenghtdif</stringProp>
+          <stringProp name="variableNames">prodlenghtdif</stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">prodlenghtdif_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="LND-3Nf" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -7257,43 +8113,6 @@ OR minutes_spent&lt; 0;</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
-          <objProp>
-            <name>saveConfig</name>
-            <value class="SampleSaveConfiguration">
-              <time>true</time>
-              <latency>true</latency>
-              <timestamp>true</timestamp>
-              <success>true</success>
-              <label>true</label>
-              <code>true</code>
-              <message>true</message>
-              <threadName>true</threadName>
-              <dataType>true</dataType>
-              <encoding>false</encoding>
-              <assertions>true</assertions>
-              <subresults>true</subresults>
-              <responseData>false</responseData>
-              <samplerData>false</samplerData>
-              <xml>false</xml>
-              <fieldNames>true</fieldNames>
-              <responseHeaders>false</responseHeaders>
-              <requestHeaders>false</requestHeaders>
-              <responseDataOnError>false</responseDataOnError>
-              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
-              <assertionsResultsToSave>0</assertionsResultsToSave>
-              <bytes>true</bytes>
-              <sentBytes>true</sentBytes>
-              <url>true</url>
-              <threadCounts>true</threadCounts>
-              <idleTime>true</idleTime>
-              <connectTime>true</connectTime>
-            </value>
-          </objProp>
-          <stringProp name="filename"></stringProp>
-        </ResultCollector>
-        <hashTree/>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Check  if amount, weight_kg and price = 0 in layer_3nf.ce_outlet_order" enabled="true">
           <stringProp name="dataSource">redshift_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
@@ -7491,6 +8310,952 @@ OR update_dt IS NULL;</stringProp>
             <intProp name="Assertion.test_type">16</intProp>
             <stringProp name="Assertion.scope">variable</stringProp>
             <stringProp name="Scope.variable">nulls_ce_outlet_orders</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="layer_3nf.ce_districts table existence " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select district_surr_id,
+district_src_id,
+src_table,
+region_surr_id,
+district_name,
+insert_dt,
+update_dt
+from layer_3nf.ce_districts cd 
+limit 2;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">column</stringProp>
+          <stringProp name="resultVariable">column</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="50">2</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">column_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="layer_3nf.ce_cities table existence " enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">select city_surr_id,
+city_src_id,
+src_table,
+district_surr_id,
+city_name,
+insert_dt,
+update_dt
+from layer_3nf.ce_cities 
+limit 2;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">column</stringProp>
+          <stringProp name="resultVariable">column</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="50">2</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">column_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="checking metadata in the table layer_3nf.ce_cities" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">with golden_metadata as
+(
+SELECT &apos;ce_cities&apos; AS table_name,
+	&apos;city_surr_id&apos; AS column_name,
+     &apos;integer&apos; AS data_type, 
+     NULL AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable, 
+     &apos;default_identity(289775, 0, (&apos;&apos;1,1&apos;&apos;::character varying)::text)&apos; AS column_default
+UNION ALL
+SELECT &apos;ce_cities&apos; AS table_name, 
+	&apos;city_src_id&apos; AS column_name,
+	&apos;character varying&apos; AS data_type,
+     256 AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable, 
+     NULL AS column_default
+UNION ALL
+SELECT &apos;ce_cities&apos; AS table_name, 
+     &apos;district_surr_id&apos; AS column_name,
+     &apos;integer&apos; AS data_type, 
+     NULL AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable,
+     NULL AS column_default
+UNION ALL
+SELECT &apos;ce_cities&apos; AS table_name, 
+	&apos;city_name&apos; AS column_name,
+	&apos;character varying&apos; AS data_type,
+     256 AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable, 
+     NULL AS column_default
+UNION ALL
+SELECT &apos;ce_cities&apos; AS table_name, 
+	&apos;src_table&apos; AS column_name,
+	&apos;character varying&apos; AS data_type,
+     256 AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable, 
+     NULL AS column_default
+UNION ALL
+SELECT &apos;ce_cities&apos; AS table_name, 
+     &apos;insert_dt&apos; AS column_name,
+     &apos;date&apos; AS data_type,
+     NULL AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable, 
+     &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_defaul
+UNION ALL
+SELECT &apos;ce_cities&apos; AS table_name, 
+     &apos;update_dt&apos; AS column_name,
+     &apos;date&apos; AS data_type,
+     NULL AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable, 
+    &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_defaul    
+),utc AS
+        (
+        SELECT table_name, 
+               column_name, 
+               data_type, 
+               character_maximum_length, 
+               is_nullable, 
+               column_default 
+        FROM information_schema.columns 
+        WHERE table_name=&apos;ce_cities&apos;
+        )
+        SELECT * FROM golden_metadata 
+        EXCEPT
+        SELECT * FROM utc 
+        UNION ALL
+        SELECT * FROM utc 
+        EXCEPT
+        SELECT * FROM golden_metadata; </stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">dif</stringProp>
+          <stringProp name="resultVariable">dif</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">dif_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="checking metadata in the table layer_3nf.ce_districts" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">
+with golden_metadata as
+(
+SELECT &apos;ce_districts&apos; AS table_name,
+	&apos;district_surr_id&apos; AS column_name,
+     &apos;integer&apos; AS udt_name, 
+     NULL AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable, 
+     &apos;default_identity(289764, 0, (&apos;&apos;1,1&apos;&apos;::character varying)::text)&apos; AS column_default
+UNION ALL
+SELECT &apos;ce_districts&apos; AS table_name, 
+	&apos;district_src_id&apos; AS column_name,
+	&apos;character varying&apos; AS udt_name,
+     256 AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable, 
+     NULL AS column_default
+UNION ALL
+SELECT &apos;ce_districts&apos; AS table_name, 
+     &apos;region_surr_id&apos; AS column_name,
+     &apos;integer&apos; AS udt_name, 
+     NULL AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable,
+     NULL AS column_default
+UNION ALL
+SELECT &apos;ce_districts&apos; AS table_name, 
+	&apos;district_name&apos; AS column_name,
+	&apos;character varying&apos; AS udt_name,
+     256 AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable, 
+     NULL AS column_default
+UNION ALL
+SELECT &apos;ce_districts&apos; AS table_name,
+		&apos;src_table&apos; AS column_name,
+		&apos;character varying&apos; AS udt_name,
+		256 AS character_maximum_length, 
+		&apos;NO&apos; AS is_nullable, 
+		NULL AS column_defaul
+UNION ALL 
+SELECT &apos;ce_districts&apos; AS table_name, 
+     &apos;insert_dt&apos; AS column_name,
+     &apos;date&apos; AS udt_name,
+     NULL AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable, 
+     &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_defaul
+UNION ALL
+SELECT &apos;ce_districts&apos; AS table_name, 
+     &apos;update_dt&apos; AS column_name,
+     &apos;date&apos; AS udt_name,
+     NULL AS character_maximum_length, 
+     &apos;NO&apos; AS is_nullable, 
+     &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_defaul    
+),utc AS
+        (
+        SELECT table_name, 
+               column_name, 
+               data_type, 
+               character_maximum_length, 
+               is_nullable, 
+               column_default 
+        FROM information_schema.columns 
+        WHERE table_name=&apos;ce_districts&apos;
+        )
+        SELECT * FROM golden_metadata 
+        EXCEPT
+        SELECT * FROM utc 
+        UNION ALL
+        SELECT * FROM utc 
+        EXCEPT
+        SELECT * FROM golden_metadata; 
+     </stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">dif</stringProp>
+          <stringProp name="resultVariable">dif</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">dif_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare count of rows layer_3nf.ce_cities" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT a.count_lnd - b.count_3nf+1
+	FROM 
+		  (SELECT count(*) AS count_lnd
+			FROM 
+		        (SELECT city_name, city_id, district_id
+		        FROM lnd_layer.dim_merchandisers dm 
+		        UNION 
+		        SELECT city_name, city_id, district_id
+		        FROM lnd_layer.dim_warehouses dw 
+		         ) src
+		    ) a,
+		    (
+		        SELECT count(*) AS count_3nf
+		        FROM
+			        (SELECT city_name ,city_src_id, cd.district_src_id
+			        	FROM layer_3nf.ce_cities cc
+			       		LEFT JOIN layer_3nf.ce_districts cd 
+			       		ON cc.district_surr_id=cd.district_surr_id
+			       	) dw 
+			   ) b;
+        </stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">dif</stringProp>
+          <stringProp name="resultVariable">dif</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">dif_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare count of rows layer_3nf.ce_districts" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT a.count_lnd - b.count_3nf+1
+	FROM 
+		  (SELECT count(*) AS count_lnd
+			FROM 
+		        (SELECT district_name, district_id, region_id
+		        FROM lnd_layer.dim_merchandisers dm 
+		        UNION 
+		        SELECT district_name, district_id, region_id
+		        FROM lnd_layer.dim_warehouses dw 
+		         ) src
+		    ) a,
+		    (
+		        SELECT count(*) AS count_3nf
+		        FROM
+			        (SELECT district_name ,district_src_id, cd.region_src_id
+			        	FROM layer_3nf.ce_districts cc
+			       		LEFT JOIN layer_3nf.ce_regions cd 
+			       		ON cc.region_surr_id=cd.region_surr_id
+			       	) dw 
+			   ) b;
+        			  </stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">dif</stringProp>
+          <stringProp name="resultVariable">dif</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">dif_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check in layer_3nf.ce_cities" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT * FROM
+ 				(SELECT city_name ,city_src_id, cd.district_src_id
+			        	FROM layer_3nf.ce_cities cc
+			       		LEFT JOIN layer_3nf.ce_districts cd 
+			       		ON cc.district_surr_id=cd.district_surr_id
+			       	) dw 
+			  EXCEPT 
+	               SELECT * FROM 
+			        (SELECT city_name, city_id, district_id
+			        FROM lnd_layer.dim_merchandisers dm 
+			        UNION 
+			        SELECT city_name, city_id, district_id
+			        FROM lnd_layer.dim_warehouses dw
+			        UNION 
+			        SELECT &apos;N/A&apos;,&apos;N/A&apos;,&apos;N/A&apos;) src
+		        UNION ALL  
+		         SELECT * FROM 
+		        (SELECT city_name, city_id, district_id
+		        FROM lnd_layer.dim_merchandisers dm 
+		        UNION 
+		        SELECT city_name, city_id, district_id
+		        FROM lnd_layer.dim_warehouses dw
+		        UNION 
+		        SELECT &apos;N/A&apos;,&apos;N/A&apos;,&apos;N/A&apos;) src
+		        EXCEPT 
+		        SELECT *
+		        FROM
+			        (SELECT city_name ,city_src_id, cd.district_src_id
+			        	FROM layer_3nf.ce_cities cc
+			       		LEFT JOIN layer_3nf.ce_districts cd 
+			       		ON cc.district_surr_id=cd.district_surr_id
+			       	) dw;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="row by row check in layer_3nf.ce_districts" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query"> SELECT * FROM
+			        (SELECT district_name ,district_src_id, cd.region_src_id
+			        	FROM layer_3nf.ce_districts cc
+			       		LEFT JOIN layer_3nf.ce_regions cd 
+			       		ON cc.region_surr_id=cd.region_surr_id
+			       	) dw 
+			  EXCEPT 
+	               SELECT * FROM 
+			        (SELECT district_name, district_id, region_id
+			        FROM lnd_layer.dim_merchandisers dm 
+			        UNION 
+			        SELECT district_name, district_id, region_id
+			        FROM lnd_layer.dim_warehouses dw
+			        UNION 
+			        SELECT &apos;N/A&apos;,&apos;N/A&apos;,&apos;N/A&apos;) src
+		        UNION ALL  
+		         SELECT * FROM 
+		        (SELECT district_name, district_id, region_id
+		        FROM lnd_layer.dim_merchandisers dm 
+		        UNION 
+		        SELECT district_name, district_id, region_id
+		        FROM lnd_layer.dim_warehouses dw
+		        UNION 
+		        SELECT &apos;N/A&apos;,&apos;N/A&apos;,&apos;N/A&apos;) src
+		        EXCEPT 
+		        SELECT *
+		        FROM
+			        (SELECT district_name ,district_src_id, cd.region_src_id
+			        	FROM layer_3nf.ce_districts cc
+			       		LEFT JOIN layer_3nf.ce_regions cd 
+			       		ON cc.region_surr_id=cd.region_surr_id
+			       	) dw;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of lenght of rows in table laer_3nf.ce_dictricts" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (a.district_name -b.district_name) 
+			        	+(a.district_id -b.district_id)
+			        	+(a.region_id -b.region_id)
+				FROM 
+			        (
+				        SELECT sum(length(district_name)) AS district_name ,
+						        sum(length(district_id)) AS district_id
+						        ,sum(length (region_id)) AS region_id
+						  FROM 
+						  (SELECT DISTINCT district_name  AS district_name,
+						  district_id  AS district_id,
+						   region_id AS region_id 
+						   FROM lnd_layer.dim_merchandisers
+				        UNION 
+				        SELECT DISTINCT district_name  AS district_name,
+						  district_id  AS district_id,
+						   region_id AS region_id 
+						   FROM
+						   lnd_layer.dim_warehouses
+						 UNION 
+						 SELECT &apos;N/A&apos;,&apos;N/A&apos;,&apos;N/A&apos;)f
+		      		)a,
+		       ( 
+		           SELECT sum(length(district_name)) AS district_name 
+			        	,sum(length (district_src_id)) AS district_id
+			        	, sum(length(cd.region_src_id)) AS region_id
+			        FROM layer_3nf.ce_districts cc
+			       	LEFT JOIN layer_3nf.ce_regions cd 
+			       	ON cc.region_surr_id=cd.region_surr_id
+			       ) b;
+			       	
+	</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare sum of length of rows in table layer_3nf.ce_cities" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">
+		         SELECT (a.city_name -b.city_name) 
+			        	+(a.city_id -b.city_id)
+			        	+(a.district_id -b.district_id)
+				FROM 
+			        (
+				        SELECT sum(length(city_name)) AS city_name ,
+						        sum(length(city_id)) AS city_id
+						        ,sum(length (district_id)) AS district_id
+						  FROM 
+						  (SELECT DISTINCT city_name  AS city_name,
+						  city_id AS city_id,
+						   district_id AS district_id 
+						   FROM lnd_layer.dim_merchandisers
+				        UNION 
+				        SELECT DISTINCT city_name AS city_name,
+				         city_id AS city_id,
+						  district_id  AS district_id
+						   FROM
+						   lnd_layer.dim_warehouses
+						 UNION 
+						 SELECT &apos;N/A&apos;,&apos;N/A&apos;,&apos;N/A&apos;)f
+		      		)a,
+		       ( 
+		           SELECT sum(length(city_name)) AS city_name
+			        	,sum(length (city_src_id)) AS city_id
+			        	, sum(length(cd.district_src_id)) AS district_id
+			        FROM layer_3nf.ce_cities cc
+			       	LEFT JOIN layer_3nf.ce_districts cd 
+			       	ON cc.district_surr_id=cd.district_surr_id
+			       ) b;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">16</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check full duplicates in layer_3nf.ce_cities" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT city_surr_id
+,city_src_id 
+,district_surr_id 
+,city_name 
+,src_table 
+,insert_dt 
+,update_dt 
+,count(*)
+FROM layer_3nf.ce_cities cc 
+GROUP BY city_surr_id
+,city_src_id 
+,district_surr_id 
+,city_name 
+,src_table 
+,insert_dt 
+,update_dt 
+HAVING count(*)&gt;1;
+			       	
+			       	
+	</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check duplicates in layer_3nf.ce_cities" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT city_src_id 
+,district_surr_id 
+,city_name 
+,src_table 
+,insert_dt 
+,update_dt 
+,count(*)
+FROM layer_3nf.ce_cities cc 
+GROUP BY city_surr_id
+,city_src_id 
+,district_surr_id 
+,city_name 
+,src_table 
+,insert_dt 
+,update_dt 
+HAVING count(*)&gt;1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check full duplicates in ce_districts" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT district_surr_id
+,district_src_id 
+,district_name 
+,region_surr_id 
+,src_table 
+,insert_dt 
+,update_dt 
+,count(*)
+FROM layer_3nf.ce_districts cd 
+GROUP BY district_surr_id
+,district_src_id 
+,district_name 
+,region_surr_id 
+,src_table 
+,insert_dt 
+,update_dt 
+HAVING count(*)&gt;1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check duplicates in ce_districts" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT district_src_id 
+,district_name 
+,region_surr_id 
+,src_table 
+,insert_dt 
+,update_dt 
+,count(*)
+FROM layer_3nf.ce_districts cd 
+GROUP BY district_src_id 
+,district_name 
+,region_surr_id 
+,src_table 
+,insert_dt 
+,update_dt 
+HAVING count(*)&gt;1;
+			       	</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check duplicates in name layer_3nf.ce_cities" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT city_src_id 
+,city_name 
+,count(*)
+FROM layer_3nf.ce_cities cc 
+GROUP BY city_src_id 
+,city_name 
+HAVING count(*)&gt;1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check duplicates in name in ce_districts" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT district_src_id 
+,district_name 
+,region_surr_id 
+,count(*)
+FROM layer_3nf.ce_districts cd 
+GROUP BY district_src_id 
+,district_name 
+,region_surr_id 
+HAVING count(*)&gt;1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Check columns for nullable for layer_3nf.ce_cities" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (count(*) - count(city_surr_id))+
+(count(*) - count(city_src_id))+
+(count(*) - count(district_surr_id))+
+(count(*) - count(city_name))+  
+(count(*) - count(src_table))+ 
+(count(*) - count(insert_dt))+  
+(count(*) - count(update_dt ))
+FROM layer_3nf.ce_cities cc </stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="Check columns for nullable for layer_3nf.ce_districts" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT (count(*) - count(district_surr_id))+ 
+ (count(*) - count(district_src_id))+ 
+ (count(*) - count(region_surr_id ))+ 
+ (count(*) - count(district_name))+ 
+ (count(*) - count(src_table))+ 
+ (count(*) - count(insert_dt))+ 
+ (count(*) - count(update_dt))
+FROM layer_3nf.ce_districts cd
+ ;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_1</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check city_name and district name duplicates in ce_cities" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT cc.city_name 
+,cd.district_name 
+,count(*)
+FROM layer_3nf.ce_cities cc 
+JOIN layer_3nf.ce_districts cd 
+ON cc.district_surr_id =cd.district_surr_id 
+GROUP BY cc.city_name 
+,cd.district_name 
+HAVING count(*)&gt;1;
+			       	</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check region and district name duplicates in ce_cities" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="query">SELECT cd.district_name,
+cr.region_name 
+,count(*)
+FROM layer_3nf.ce_districts cd 
+JOIN layer_3nf.ce_regions cr 
+ON cd.region_surr_id =cr.region_surr_id 
+GROUP BY cd.district_name,
+cr.region_name 
+HAVING count(*)&gt;1;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes"></stringProp>
+          <stringProp name="variableNames">df</stringProp>
+          <stringProp name="resultVariable">df</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">df_#</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>

@@ -4058,23 +4058,23 @@ LIMIT 1;</stringProp>
           <stringProp name="dataSource">redshift_conn</stringProp>
           <stringProp name="query">WITH golden_metadata AS
 (
-SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;country_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
-NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;nextval(layer_3nf.ce_countries_seq::regclass)&apos; column_default
+SELECT &apos;ce_countries&apos; AS table_name, &apos;country_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;default_identity(289746, 0, (&apos;&apos;1,1&apos;&apos;::character varying)::text)&apos; column_default
 UNION ALL
-SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;country_src_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+SELECT &apos;ce_countries&apos; AS table_name, &apos;country_src_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
 UNION ALL
-SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;country_name&apos; AS column_name, &apos;character varying&apos; AS data_type,
+SELECT &apos;ce_countries&apos; AS table_name, &apos;country_name&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
 UNION ALL
-SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;src_table&apos; AS column_name, &apos;character varying&apos; AS data_type,
-NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+SELECT &apos;ce_countries&apos; AS table_name, &apos;src_table&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
 UNION ALL
-SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
-NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT DATE&apos; AS column_default
+SELECT &apos;ce_countries&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
 UNION ALL
-SELECT &apos;layer_3nf.ce_countries&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
-NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT DATE&apos; AS column_default
+SELECT &apos;ce_countries&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
 ), utc AS
 (
 SELECT table_name,
@@ -4084,7 +4084,7 @@ character_maximum_length,
 is_nullable,
 column_default
 FROM information_schema.columns
-WHERE table_name=&apos;layer_3nf.ce_countries&apos;
+WHERE table_name=&apos;ce_countries&apos;
 )
 SELECT *
 FROM golden_metadata 
@@ -4394,26 +4394,26 @@ LIMIT 1;</stringProp>
           <stringProp name="dataSource">redshift_conn</stringProp>
           <stringProp name="query">WITH golden_metadata AS
 (
-SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;region_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
-NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;nextval(layer_3nf.ce_regions_seq::regclass)&apos; column_default
+SELECT &apos;ce_regions&apos; AS table_name, &apos;region_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;default_identity(289753, 0, (&apos;&apos;1,1&apos;&apos;::character varying)::text)&apos; column_default
 UNION ALL
-SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;region_src_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+SELECT &apos;ce_regions&apos; AS table_name, &apos;region_src_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
 256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
 UNION all
-SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;country_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
-NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS  column_default
-UNION all
-SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;region_name&apos; AS column_name, &apos;character varying&apos; AS data_type,
-256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
-UNION ALL
-SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;src_table&apos; AS column_name, &apos;character varying&apos; AS data_type,
+SELECT &apos;ce_regions&apos; AS table_name, &apos;country_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
 NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION all
+SELECT &apos;ce_regions&apos; AS table_name, &apos;region_name&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
 UNION ALL
-SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
-NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT DATE&apos; AS column_default
+SELECT &apos;ce_regions&apos; AS table_name, &apos;src_table&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
 UNION ALL
-SELECT &apos;layer_3nf.ce_regions&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
-NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;CURRENT DATE&apos; AS column_default
+SELECT &apos;ce_regions&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+UNION ALL
+SELECT &apos;ce_regions&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
 ), utc AS
 (
 SELECT table_name,
@@ -4423,7 +4423,7 @@ character_maximum_length,
 is_nullable,
 column_default
 FROM information_schema.columns
-WHERE table_name=&apos;layer_3nf.ce_regions&apos;
+WHERE table_name=&apos;ce_regions&apos;
 )
 SELECT *
 FROM golden_metadata 
@@ -4729,10 +4729,104 @@ limit 1;</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
+        <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="check metadata layer_3nf.ce_sales_out" enabled="true">
+          <stringProp name="dataSource">redshift_conn</stringProp>
+          <stringProp name="query">WITH golden_metadata AS
+(
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;merchandiser_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION ALL
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;outlet_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION all
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;product_surr_id&apos; AS column_name, &apos;integer&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS  column_default
+UNION all
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;invoice_id&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION ALL
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;invoice_number&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION all
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;order_number&apos; AS column_name, &apos;bigint&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION ALL
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;date_id&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION all
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;status&apos; AS column_name, &apos;integer&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS  column_default
+UNION all
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;status_name&apos; AS column_name, &apos;character varying&apos; AS data_type,
+256 AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION ALL
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;product_quantity&apos; AS column_name, &apos;integer&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION all
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;package_quantity&apos; AS column_name, &apos;numeric&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION ALL
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;weight_kg&apos; AS column_name, &apos;numeric&apos; AS data_type,
+NULL  AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION all
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;amount&apos; AS column_name, &apos;numeric&apos; AS data_type,
+NULL  AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS  column_default
+UNION all
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;price&apos; AS column_name, &apos;numeric&apos; AS data_type,
+NULL  AS character_maximum_length, &apos;NO&apos; AS is_nullable, NULL AS column_default
+UNION ALL
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;insert_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+UNION ALL
+SELECT &apos;ce_sales_out&apos; AS table_name, &apos;update_dt&apos; AS column_name, &apos;date&apos; AS data_type,
+NULL AS character_maximum_length, &apos;NO&apos; AS is_nullable, &apos;(&apos;&apos;now&apos;&apos;::text)::date&apos; AS column_default
+), utc AS
+(
+SELECT table_name,
+column_name,
+data_type,
+character_maximum_length,
+is_nullable,
+column_default
+FROM information_schema.columns
+WHERE table_name= &apos;ce_sales_out&apos;
+)
+SELECT *
+FROM golden_metadata 
+except
+SELECT *
+FROM utc
+UNION ALL
+SELECT * FROM utc
+EXCEPT
+SELECT * FROM golden_metadata;</stringProp>
+          <stringProp name="queryArguments"></stringProp>
+          <stringProp name="queryArgumentsTypes">meta5</stringProp>
+          <stringProp name="queryTimeout"></stringProp>
+          <stringProp name="queryType">Select Statement</stringProp>
+          <stringProp name="resultSetHandler">Store as String</stringProp>
+          <stringProp name="resultSetMaxRows"></stringProp>
+          <stringProp name="resultVariable"></stringProp>
+          <stringProp name="variableNames">meta5</stringProp>
+        </JDBCSampler>
+        <hashTree>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check metadata layer_3nf.ce_sales_out" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="48">0</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="Assertion.scope">variable</stringProp>
+            <stringProp name="Scope.variable">meta5_#</stringProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
         <JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="compare count of rows  in tables  layer_3nf.ce_sales_out and lnd_layer.fct_sales_out_d" enabled="true">
           <stringProp name="dataSource">redshift_conn</stringProp>
           <stringProp name="queryType">Select Statement</stringProp>
-          <stringProp name="query">SELECT (source.n-target.n) as differ
+          <stringProp name="query">SELECT (source.n-target.n-7) as differ
 FROM
 (SELECT count(*) as n FROM (SELECT distinct * from lnd_layer.fct_sales_out_d) a) source,
 (SELECT count(*) as n FROM layer_3nf.ce_sales_out) target;</stringProp>
